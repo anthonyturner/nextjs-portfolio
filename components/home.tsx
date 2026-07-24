@@ -99,6 +99,13 @@ export default function Home() {
           <BsLinkedin></BsLinkedin>
         </a>
         <a
+          href="https://github.com/anthonyturner"
+          target="_blank"
+          className="bg-white text-gray-700 p-4 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-110 hover:text-gray-950 hover:scale-[1.15] active:scale-105 transition cursor-pointer border border-black/10"
+        >
+          <FaGithubSquare></FaGithubSquare>
+        </a>
+        <a
           href="https://github.com/anthonybturner"
           target="_blank"
           className="bg-white text-gray-700 p-4 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-110 hover:text-gray-950 hover:scale-[1.15] active:scale-105 transition cursor-pointer border border-black/10"

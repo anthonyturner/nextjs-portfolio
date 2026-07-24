@@ -11,7 +11,7 @@ import mosThumb from "@/public/images/certifications/mos-thumb.svg";
 import mosImg from "@/public/images/certifications/mos.svg";
 import solidThumb from "@/public/images/certifications/solid-thumb.png";
 import solidImg from "@/public/images/certifications/solid.png";
-import marvelRivalsAppThumb from "@/public/images/marvel-rivals-main-thumb.jpg";
+import marvelRivalsAppThumb from "@/public/images/marvel-rivals-site-thumb.png";
 import marvelRivalsAppImg from "@/public/images/marvel-rivals-site.png";
 import modernStackImg from "@/public/images/modern-stack-solutions.png";
 import corpcommentImg from "@/public/images/navy-project-main.jpg";
@@ -109,6 +109,25 @@ export const experiencesData = [
 ] as const;
 
 export const projectsData = [
+   {
+    title: "Marvel Rivals Coach",
+    description:
+      "Marvel Rivals Coach is an Angular companion site for learning heroes, matchups, positioning concepts, media guides, and practice habits for Marvel Rivals. The app is built as a coaching reference instead of a static wiki clone: it combines hero data, ability details, glossary terms, video resources, guide-based lessons, and guided learning paths into one searchable site.",
+    tags: ["Angular", "TypeScript", "CSS3", "API Integration", "Data Visualization", "Gaming", "Angular Services"],
+    imageUrl: marvelRivalsAppImg,
+    thumbnailUrl: marvelRivalsAppThumb,
+    github: "https://github.com/anthonyturner/marvel-rivals-coach",
+    website: "https://marvel-rivals-coach-six.vercel.app/",
+  },
+  {
+    title: "Rivals Pulse - Marvel Rivals Overwolf App (available soon on appstore)",
+    description:
+      "A powerful Overwolf application for Marvel Rivals that provides real-time in-game insights and statistics. Built with Angular and TypeScript to deliver seamless integration with the game client. Features live player tracking, match analytics, character performance metrics, and interactive overlays for competitive gaming. Applies SOLID principles through modular component architecture, dependency injection, and reusable services for data management. Demonstrates advanced Angular development for desktop gaming applications.",
+    tags: ["Angular", "TypeScript", "Overwolf API", "Gaming", "Real-time Analytics", "Desktop Application", "RxJS", "SOLID Principles"],
+    imageUrl: rivalsPulseImg,
+    thumbnailUrl: rivalsPulseThumb,
+    website: "https://www.overwolf.com/appstore",
+  }, 
   {
     title: "Personal Portfolio Website (alternative)",
     description:
@@ -138,26 +157,7 @@ export const projectsData = [
     thumbnailUrl: reactMovieDatabaseAppImg,
     github: "https://github.com/anthonybturner/ReactMovieDatabase",
     website: "https://react-movie-database-nine.vercel.app",
-  },
-  {
-    title: "Marvel Rivals Stats Fan Site (WIP)",
-    description:
-      "An interactive fan site dedicated to Marvel Rivals game statistics and character information. Built with Angular and TypeScript to provide real-time stats, character comparisons, and game insights. Features dynamic data visualization, Angular services for data management, and responsive design for gaming enthusiasts.",
-    tags: ["Angular", "TypeScript", "CSS3", "API Integration", "Data Visualization", "Gaming", "Angular Services"],
-    imageUrl: marvelRivalsAppImg,
-    thumbnailUrl: marvelRivalsAppThumb,
-    github: "https://github.com/anthonybturner/marvelrivalsui",
-    website: "#WIP",
-  },
-  {
-    title: "Rivals Pulse - Marvel Rivals Overwolf App (available soon on appstore)",
-    description:
-      "A powerful Overwolf application for Marvel Rivals that provides real-time in-game insights and statistics. Built with Angular and TypeScript to deliver seamless integration with the game client. Features live player tracking, match analytics, character performance metrics, and interactive overlays for competitive gaming. Applies SOLID principles through modular component architecture, dependency injection, and reusable services for data management. Demonstrates advanced Angular development for desktop gaming applications.",
-    tags: ["Angular", "TypeScript", "Overwolf API", "Gaming", "Real-time Analytics", "Desktop Application", "RxJS", "SOLID Principles"],
-    imageUrl: rivalsPulseImg,
-    thumbnailUrl: rivalsPulseThumb,
-    website: "https://www.overwolf.com/appstore",
-  },
+  }
 ] as const;
 
 export const skillsData = [
