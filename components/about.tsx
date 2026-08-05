@@ -19,17 +19,19 @@ export default function About() {
       <SectionHeading>About Me</SectionHeading>
       <p className="mb-3">
         After earning my degrees in <span className="font-medium">Computer Science</span> from Ulster County Community
-        College and SUNY New Paltz, I launched my career as a <span className="font-medium">full-stack developer</span>.
-        Over the past <span className="font-medium">10+ years</span>, I&apos;ve built scalable web applications,
-        contributed to development projects, and solved complex technical challenges.{' '}
-        <span className="italic">My favorite part of programming</span> is the problem-solving aspect. I{' '}
-        <span className="underline">love</span> the feeling of finally figuring out a solution to a problem. My core
-        stack is{' '}
+        College and SUNY New Paltz, I built my career as a <span className="font-medium">full-stack developer</span>.
+        Over the past <span className="font-medium">10+ years</span>, I&apos;ve delivered enterprise software for
+        commercial and federal clients, modernized legacy systems, and shipped scalable cloud-based applications.
+        My core stack is{' '}
         <span className="font-medium">
-          .NET Core, React, Next.js, TypeScript, Angular, Node.js, SQL Server, and PostgreSQL
+          C#, .NET, ASP.NET Core, Angular, TypeScript, SQL Server, Azure, REST APIs, and cloud technologies
         </span>
-        . I&apos;m always exploring new technologies and currently seeking a{' '}
-        <span className="font-medium">full-time position</span> where I can contribute to meaningful projects.
+        .
+      </p>
+      <p className="mb-3">
+        I bring a strong focus on <span className="font-medium">AI-assisted software engineering</span>, using{' '}
+        <span className="font-medium">GitHub Copilot, OpenAI Codex, and prompt engineering</span> to accelerate
+        architecture, implementation, debugging, testing, and documentation without sacrificing code quality.
       </p>
       <p>
         <span className="italic">When I&apos;m not coding</span>, I enjoy gaming, movies, and dancing. I&apos;m also

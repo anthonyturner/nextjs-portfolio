@@ -56,7 +56,7 @@ export const experiencesData = [
     title: "Applications Developer (Contract) - AppTech",
     location: "Norwalk, CT (Hybrid)",
     description:
-      "Modernizing legacy Angular applications to Angular 19 and working with .NET Framework systems. Working with existing APIs using ASP.NET Core, RxJS, and TypeScript; managing and implementing efficient DTO/entity mapping. Contributing to CI/CD pipeline integration in Azure DevOps for automated testing and deployments. Participating in daily standups in an agile environment.",
+      "Modernized Angular and .NET Framework applications to Angular 19 and .NET Core. Developed scalable ASP.NET Core APIs in C#, implemented reactive Angular features with RxJS and Signals, and integrated Azure DevOps CI/CD pipelines for automated delivery.",
     icon: React.createElement(FaReact),
     image: corpcommentImg,
     date: "Apr 2025 - Jun 2025",
@@ -65,28 +65,46 @@ export const experiencesData = [
     title: "Cloud Software Engineer - Constellation Software Engineering",
     location: "Remote",
     description:
-      "Migrated, managed, and built secure cloud applications using Python/Django for federal Navy projects. Managed reporting systems with .NET Core and SQL Server, handling data management and report generation. Worked on OAuth authentication systems. Participated in Agile development with code reviews and automated deployments.",
+      "Led architecture and modernization support for U.S. Navy reporting systems using .NET, SQL Server, and Azure. Delivered a public-facing Navy JAG platform with Django, Python, and Wagtail, while improving deployment reliability and database performance.",
     icon: React.createElement(FaReact),
     image: corpcommentImg,
-    date: "Sept 2023 - Aug 2024",
+    date: "Sep 2023 - Aug 2024",
   },
   {
     title: ".NET Software Developer - Ryan Specialties",
     location: "Rockhill, NY",
     description:
-      "Worked on legacy system modernization, migrating VB.NET applications to C#/.NET 4, improving maintainability and execution speed by 60%. Created bulk email applications for automating email processes and modernized a Weather API application from legacy VB code, reducing manual processes and operational errors.",
+      "Modernized legacy .NET applications, improved maintainability and scalability, and collaborated with cross-functional teams to deliver robust enterprise software under aggressive timelines.",
     icon: React.createElement(CgWorkAlt),
     image: corpcommentImg,
     date: "Jan 2023 - Aug 2023",
   },
   {
-    title: ".NET Full-Stack Developer - InfoEd Global",
+    title: ".NET Software Developer - InfoEd Global",
     location: "Albany, NY",
     description:
-      "Developed and maintained enterprise solutions for government and educational sectors using full-stack .NET technologies (C#, ASP.NET MVC, WebForms, legacy ASP), JavaScript, and jQuery. Enhanced user interfaces with Telerik component libraries and implemented robust data processing through XML/XSD integrations and REST API development.",
+      "Developed enterprise software with .NET Framework, Angular, JavaScript, SQL Server, Oracle, XML/XSD, and REST APIs. Optimized performance through refactoring and code reviews, and delivered integration features for enterprise data exchange.",
     icon: React.createElement(FaReact),
     image: corpcommentImg,
     date: "Nov 2018 - Nov 2022",
+  },
+  {
+    title: "WordPress / PHP Developer - REV Design",
+    location: "Remote",
+    description:
+      "Built and maintained custom WordPress websites and PHP applications, improving performance, security, and overall user experience for client-facing platforms.",
+    icon: React.createElement(CgWorkAlt),
+    image: corpcommentImg,
+    date: "Dec 2017 - Nov 2018",
+  },
+  {
+    title: ".NET Software Developer Intern - Precision Care Software",
+    location: "New York",
+    description:
+      "Developed ASP.NET applications and SQL Server solutions, built responsive interfaces, and contributed to testing and code review workflows in a team environment.",
+    icon: React.createElement(CgWorkAlt),
+    image: corpcommentImg,
+    date: "Apr 2015 - Apr 2016",
   },
   {
     title: "Bachelor's Degree in Computer Science",
@@ -110,29 +128,37 @@ export const experiencesData = [
 
 export const projectsData = [
    {
-    title: "Marvel Rivals Coach",
+    title: "Rivals Pulse Coach",
     description:
-      "Marvel Rivals Coach is an Angular companion site for learning heroes, matchups, positioning concepts, media guides, and practice habits for Marvel Rivals. The app is built as a coaching reference instead of a static wiki clone: it combines hero data, ability details, glossary terms, video resources, guide-based lessons, and guided learning paths into one searchable site.",
-    tags: ["Angular", "TypeScript", "CSS3", "API Integration", "Data Visualization", "Gaming", "Angular Services"],
+      "An Angular companion platform for hero learning, matchup strategy, positioning concepts, and guided practice for Marvel Rivals. Built with an AI-assisted workflow to accelerate feature planning, refactoring, and content iteration while maintaining a scalable component architecture.",
+    tags: ["Angular", "TypeScript", "API Integration", "AI-Assisted Development", "Gaming", "Component Architecture"],
     imageUrl: marvelRivalsAppImg,
     thumbnailUrl: marvelRivalsAppThumb,
     github: "https://github.com/anthonyturner/marvel-rivals-coach",
-    website: "https://marvel-rivals-coach-six.vercel.app/",
+    website: "https://www.rivalspulse.com/",
   },
   {
     title: "Rivals Pulse - Marvel Rivals Overwolf App (available soon on appstore)",
     description:
-      "A powerful Overwolf application for Marvel Rivals that provides real-time in-game insights and statistics. Built with Angular and TypeScript to deliver seamless integration with the game client. Features live player tracking, match analytics, character performance metrics, and interactive overlays for competitive gaming. Applies SOLID principles through modular component architecture, dependency injection, and reusable services for data management. Demonstrates advanced Angular development for desktop gaming applications.",
-    tags: ["Angular", "TypeScript", "Overwolf API", "Gaming", "Real-time Analytics", "Desktop Application", "RxJS", "SOLID Principles"],
+      "Designed and developed an Overwolf companion application with Angular and TypeScript for real-time gameplay insights, hero recommendations, and performance analytics. Applied SOLID architecture, reusable services, and AI-assisted development workflows to accelerate delivery and maintain code quality.",
+    tags: ["Angular", "TypeScript", "Overwolf API", "Real-time Analytics", "RxJS", "SOLID Principles", "AI-Assisted Development"],
     imageUrl: rivalsPulseImg,
     thumbnailUrl: rivalsPulseThumb,
     website: "https://www.overwolf.com/appstore",
   }, 
   {
+    title: "U.S. Navy Application Modernization",
+    description:
+      "Stabilized and modernized a mission-critical Navy application by resolving legacy issues, improving reliability, and delivering improvements under aggressive schedules. Combined .NET, SQL Server, and cloud deployment practices with AI-assisted engineering for faster investigation and execution.",
+    tags: [".NET", "SQL Server", "Azure", "Modernization", "Federal"],
+    imageUrl: corpcommentImg,
+    thumbnailUrl: corpcommentImg,
+  },
+  {
     title: "Personal Portfolio Website (alternative)",
     description:
-      "This portfolio exemplifies these principles: built entirely by me using Angular 19 for a component-driven SPA architecture, TypeScript for type safety, and SCSS for modular styling. I applied SOLID patterns throughout—extracting components by responsibility, using services for data management, configuring behavior through dependency injection, and organizing shared models in a models folder for reusability. The application demonstrates advanced Angular routing, RxJS reactive patterns, Angular Signals for fine-grained reactivity, computed properties for derived state management, API integration, accessibility best practices, and automated CI/CD deployment on Vercel—all while maintaining clean, refactorable code.",
-    tags: ["Angular", "TypeScript", "SCSS", "RxJS", "Angular Signals", "Vercel", "SOLID Principles"],
+      "A production-focused portfolio experience built with Angular and TypeScript to showcase architecture, engineering depth, and AI-assisted delivery practices. Uses modular components, strict typing, and clean abstractions to keep the codebase maintainable while enabling rapid feature evolution.",
+    tags: ["Angular", "TypeScript", "SCSS", "RxJS", "Angular Signals", "Vercel"],
     imageUrl: portfolioImg,
     thumbnailUrl: portfolioImg,
     github: "https://github.com/anthonybturner/software-dev-portfolio",
@@ -161,26 +187,37 @@ export const projectsData = [
 ] as const;
 
 export const skillsData = [
+  "AI-Assisted Software Engineering",
+  "AI Prompt Engineering",
+  "GitHub Copilot",
+  "OpenAI Codex",
+  "CI/CD",
+  "Azure",
+  "Docker",
   "HTML",
   "CSS",
   "JavaScript",
   "TypeScript",
-  "TypeScript Generics", // ✅ Added TypeScript Generics
+  "TypeScript Generics",
   "React",
   "Next.js",
   "Node.js",
   "Git",
+  "GitHub",
   "Tailwind",
   "GraphQL",
   "Express",
   "SQL Server",
   "PostgreSQL",
+  "Oracle",
   "Python",
   "Django",
+  "Wagtail",
   "Framer Motion",
   "C#",
-  "C# Generics", // ✅ Added C# Generics
+  "C# Generics",
   ".NET 8",
+  ".NET Framework",
   "ASP.NET Core",
   "Legacy ASP.NET",
   "OAuth2",
@@ -188,6 +225,7 @@ export const skillsData = [
   "PHP",
   "WordPress",
   "RxJS",
+  "Angular Signals",
   "Azure DevOps",
   "Angular",
   "Azure SQL",

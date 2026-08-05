@@ -50,10 +50,11 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
       >
         <span className="font-bold">Hello, I&apos;m Anthony.</span> I&apos;m a{' '}
-        <span className="font-bold">seasoned professional full-stack developer</span> with{' '}
-        <span className="font-bold">10+ years</span> building scalable web applications. I specialize in{' '} 
-        <span className="font-bold">C#, .NET/Core, Angular, TypeScript, JavaScript </span> and databases (SQL Server, SQL, Oracle).
-        Most recently, I have been focusing on <span className="font-bold">Angular, React, Next.js, TypeScript and SOLID principles</span>.
+        <span className="font-bold">full-stack developer and AI-assisted software engineer</span> with{' '}
+        <span className="font-bold">10+ years</span> delivering enterprise applications. I specialize in{' '}
+        <span className="font-bold">C#, .NET, ASP.NET Core, Angular, TypeScript, SQL Server, and Azure</span>, and I use{' '}
+        <span className="font-bold">GitHub Copilot, OpenAI Codex, and prompt engineering</span> to accelerate design,
+        implementation, debugging, testing, and delivery.
       </motion.h1>
       <motion.div
         className="mb-10 px-4 text-base leading-relaxed text-gray-700"
@@ -62,13 +63,14 @@ export default function Home() {
         transition={{ delay: 0.1 }}
       >
         <p className="mb-6">
-          <span className="font-bold">Passionate advocate for SOLID principles and clean architecture.</span> I prioritize object encapsulation, dependency injection, and separation of concerns to create extensible, testable codebases that scale with business needs. Every solution I deliver emphasizes code clarity, maintainability, and long-term sustainability—recognizing that the true cost of software lies in its evolution, not its creation.
+          <span className="font-bold">I build with AI-accelerated engineering workflows.</span> I combine SOLID architecture,
+          clean code practices, and AI-assisted development to ship reliable software faster while keeping maintainability
+          high for long-term product evolution.
         </p>
         <p>
-          <span className="font-bold">This portfolio</span>, built entirely by me, using <span className="font-bold">Next.js</span> for a component-driven architecture, 
-          <span className="font-bold">TypeScript</span> for type safety, and <span className="font-bold">Tailwind CSS</span> for responsive styling. 
-          I applied custom hooks for data management, managing state through React patterns, and maintaining shared utilities and types for reusability. 
-          The application demonstrates routing, reactive state management, accessibility best practices, and automated CI/CD deployment on Vercel—all while maintaining clean, refactorable code.
+          <span className="font-bold">In this portfolio</span>, you&apos;ll see examples of modernization work, cloud delivery,
+          real-time Angular applications, and AI-assisted software engineering across the full development lifecycle.
+          My goal is to produce software that is fast to deliver, easy to reason about, and resilient in production.
         </p>
       </motion.div>
       <motion.div
