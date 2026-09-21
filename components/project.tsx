@@ -5,10 +5,28 @@ import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa'
 import ImageLightbox from './image-lightbox'
+import ProjectVideo from './project-video'
 
 type ProjectProps = (typeof projectsData)[number]
 
-export default function Project({ title, description, tags, imageUrl, thumbnailUrl, github, website }: Partial<ProjectProps> & { github?: string; website?: string }) {
+export default function Project({
+  title,
+  description,
+  tags,
+  imageUrl,
+  thumbnailUrl,
+  github,
+  website,
+  videoUrl,
+  videoPosterUrl,
+  videoCaption,
+}: Partial<ProjectProps> & {
+  github?: string
+  website?: string
+  videoUrl?: string
+  videoPosterUrl?: string
+  videoCaption?: string
+}) {
   const ref = useRef<HTMLDivElement>(null)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const { scrollYProgress } = useScroll({
@@ -35,7 +53,7 @@ export default function Project({ title, description, tags, imageUrl, thumbnailU
           p-4 sm:p-8
         "
         >
-          {thumbnailUrl && (
+          {!videoUrl && thumbnailUrl && (
             <button
               onClick={() => setIsLightboxOpen(true)}
               className="
@@ -57,6 +75,14 @@ export default function Project({ title, description, tags, imageUrl, thumbnailU
           )}
           <h3 className="text-2xl font-semibold">{title}</h3>
           <p className="mt-2 leading-relaxed text-gray-700">{description}</p>
+          {videoUrl && (
+            <ProjectVideo
+              src={videoUrl}
+              title={title || ''}
+              poster={videoPosterUrl}
+              caption={videoCaption}
+            />
+          )}
           <ul className="flex flex-wrap mt-4 gap-2">
             {tags?.map((tag, index) => (
               <li

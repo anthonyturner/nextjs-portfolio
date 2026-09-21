@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="agent-speak terminal card showing a spoken handover line">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1c1917"/>
+      <stop offset="100%" stop-color="#292524"/>
+    </linearGradient>
+    <linearGradient id="wave" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" rx="20" fill="url(#bg)"/>
+
+  <g transform="translate(36 34)">
+    <circle cx="0" cy="0" r="7" fill="#ef4444"/>
+    <circle cx="24" cy="0" r="7" fill="#f59e0b"/>
+    <circle cx="48" cy="0" r="7" fill="#22c55e"/>
+  </g>
+  <text x="112" y="40" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="17" fill="#a8a29e">agent-speak</text>
+  <line x1="36" y1="62" x2="764" y2="62" stroke="#44403c" stroke-width="1"/>
+
+  <g transform="translate(36 112)">
+    <g fill="url(#wave)">
+      <rect x="0"   y="26" width="7" height="20" rx="3.5"/>
+      <rect x="15"  y="14" width="7" height="44" rx="3.5"/>
+      <rect x="30"  y="0"  width="7" height="72" rx="3.5"/>
+      <rect x="45"  y="18" width="7" height="36" rx="3.5"/>
+      <rect x="60"  y="8"  width="7" height="56" rx="3.5"/>
+      <rect x="75"  y="28" width="7" height="16" rx="3.5"/>
+      <rect x="90"  y="12" width="7" height="48" rx="3.5"/>
+      <rect x="105" y="24" width="7" height="24" rx="3.5"/>
+    </g>
+  </g>
+
+  <text x="36" y="248" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="27" fill="#fafaf9">&#8220;Issue 466, notification toast layout.</text>
+  <text x="36" y="290" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="27" fill="#fafaf9">The draft pull request is up and</text>
+  <text x="36" y="332" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="27" fill="#fafaf9">ready for review.&#8221;</text>
+
+  <line x1="36" y1="392" x2="764" y2="392" stroke="#44403c" stroke-width="1"/>
+  <text x="36" y="432" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16" fill="#a8a29e">Node.js</text>
+  <text x="140" y="432" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16" fill="#a8a29e">ElevenLabs API</text>
+  <text x="316" y="432" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16" fill="#a8a29e">SAPI5</text>
+  <text x="404" y="432" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16" fill="#a8a29e">Win32 hooks</text>
+  <text x="36" y="464" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16" fill="#78716c">the agent tells you it&#8217;s done &#8212; out loud, in one line</text>
+</svg>

@@ -5,6 +5,7 @@ import { LuGraduationCap } from "react-icons/lu";
 import type { JobCertification } from "./types";
  
 // Project images - using Next.js public folder pattern
+import agentSpeakImg from "@/public/images/agent-speak.svg";
 import angularMasteryThumb from "@/public/images/certifications/angular-mastery-thumb.png";
 import angularMasteryImg from "@/public/images/certifications/angular-mastery.png";
 import mosThumb from "@/public/images/certifications/mos-thumb.svg";
@@ -17,6 +18,7 @@ import modernStackImg from "@/public/images/modern-stack-solutions.png";
 import corpcommentImg from "@/public/images/navy-project-main.jpg";
 import portfolioImg from "@/public/images/portfolio-website.png";
 import reactMovieDatabaseAppImg from "@/public/images/react-movie-database.png";
+import rivalsPulseVoiceDemoPoster from "@/public/images/rivals-pulse-voice-demo-poster.jpg";
 import rivalsPulseThumb from "@/public/images/rivals-pulse-thumb.jpg";
 import rivalsPulseImg from "@/public/images/rivals-pulse.png";
 
@@ -140,11 +142,24 @@ export const projectsData = [
   {
     title: "Rivals Pulse - Marvel Rivals Overwolf App (available soon on appstore)",
     description:
-      "Designed and developed an Overwolf companion application with Angular and TypeScript for real-time gameplay insights, hero recommendations, and performance analytics. Applied SOLID architecture, reusable services, and AI-assisted development workflows to accelerate delivery and maintain code quality.",
-    tags: ["Angular", "TypeScript", "Overwolf API", "Real-time Analytics", "RxJS", "SOLID Principles", "AI-Assisted Development"],
+      "Designed and developed an Overwolf companion application with Angular and TypeScript for real-time gameplay insights, hero recommendations, and performance analytics. Integrated a hands-free voice assistant built on the ElevenLabs conversational AI and text-to-speech APIs, so the app can be asked for matchup, positioning, and hero questions mid-match and answer out loud without the player ever leaving the game. Applied SOLID architecture, reusable services, and AI-assisted development workflows to accelerate delivery and maintain code quality.",
+    tags: ["Angular", "TypeScript", "Overwolf API", "ElevenLabs API", "Conversational AI", "Voice Assistant", "Real-time Analytics", "RxJS", "SOLID Principles", "AI-Assisted Development"],
     imageUrl: rivalsPulseImg,
     thumbnailUrl: rivalsPulseThumb,
+    videoUrl: "/videos/rivals-pulse-voice-demo.mp4",
+    videoPosterUrl: rivalsPulseVoiceDemoPoster.src,
+    videoCaption:
+      "Unedited match capture of the voice assistant in use. Turn sound on - the assistant is heard rather than shown, so the spoken questions and its replies are the demo.",
     website: "https://www.overwolf.com/appstore",
+  },
+  {
+    title: "Agent Speak - Voice Plugin for AI Coding Agents",
+    description:
+      "A plugin I built that gives an AI coding agent a spoken handover: when a task finishes it says one short line naming what is done and what to do next, instead of narrating the whole response back at you. Built the speech pipeline on the ElevenLabs API with an offline Windows SAPI5 fallback, pausable playback, and a low-level keyboard hook that claims the media keys only while audio is actually playing. Prototyping this plugin is what shaped the ElevenLabs voice agent that now ships inside the Rivals Pulse app.",
+    tags: ["Node.js", "ElevenLabs API", "Text-to-Speech", "Voice AI", "Windows APIs", "PowerShell", "Developer Tooling", "AI-Assisted Development"],
+    imageUrl: agentSpeakImg,
+    thumbnailUrl: agentSpeakImg,
+    github: "https://github.com/anthonyturner/agent-speak",
   }, 
   {
     title: "U.S. Navy Application Modernization",
@@ -191,6 +206,9 @@ export const skillsData = [
   "AI Prompt Engineering",
   "GitHub Copilot",
   "OpenAI Codex",
+  "ElevenLabs Voice AI",
+  "Conversational AI Agents",
+  "Text-to-Speech Integration",
   "CI/CD",
   "Azure",
   "Docker",
