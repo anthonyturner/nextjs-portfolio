@@ -2,6 +2,7 @@ import Footer from '@/components/footer'
 import Header from '@/components/header'
 import ThemeSwitch from '@/components/theme-switch'
 import ActiveSectionContextProvider from '@/context/active-section-context'
+import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Toaster position="top-right" />
         </ActiveSectionContextProvider>
         <ThemeSwitch></ThemeSwitch>
+        <Analytics />
       </body>
     </html>
   )
