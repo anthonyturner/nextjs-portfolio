@@ -17,6 +17,8 @@ import marvelRivalsAppImg from "@/public/images/marvel-rivals-site.png";
 import modernStackImg from "@/public/images/modern-stack-solutions.png";
 import corpcommentImg from "@/public/images/navy-project-main.jpg";
 import portfolioImg from "@/public/images/portfolio-website.png";
+import prStarmapThumb from "@/public/images/pr-starmap-thumb.jpg";
+import prStarmapImg from "@/public/images/pr-starmap.png";
 import reactMovieDatabaseAppImg from "@/public/images/react-movie-database.png";
 import rivalsPulseVoiceDemoPoster from "@/public/images/rivals-pulse-voice-demo-poster.jpg";
 import rivalsPulseThumb from "@/public/images/rivals-pulse-thumb.jpg";
@@ -151,6 +153,16 @@ export const projectsData = [
     videoCaption:
       "Unedited match capture of the voice assistant in use. Turn sound on - the assistant is heard rather than shown, so the spoken questions and its replies are the demo.",
     website: "https://www.overwolf.com/appstore",
+  },
+  {
+    title: "PR Starmap - Live Review Dashboard for Agent-Authored Pull Requests",
+    description:
+      "A live dashboard for the pull requests AI coding agents open across every repository I work in. GitHub still owns the pull request; this adds the two things GitHub has no concept of - that an agent handed the work back, and whether it has been looked at yet. The queue ranks blocked work first: branches that no longer merge cleanly, failing checks, and pull requests with no issue linked come before anything merely waiting to be read, so the backlog drains instead of burying stale work under each day's arrivals. Two views render the same data - a star map per project, one star per pull request sized by how long it has gone untouched and coloured by what is blocking it, and an orrery across every repository, each repo a world with a moon for each blocked pull request. Built as a zero-dependency Node ESM plugin with hand-written SVG and Web Audio, reading GitHub through the authenticated CLI, and deployed on Vercel with a Redis store and a scheduled refresh.",
+    tags: ["Node.js", "JavaScript", "SVG", "Data Visualization", "GitHub CLI", "Vercel", "Redis", "Serverless", "Developer Tooling", "AI-Assisted Development"],
+    imageUrl: prStarmapImg,
+    thumbnailUrl: prStarmapThumb,
+    github: "https://github.com/anthonyturner/pr-starmap",
+    website: "https://pr-starmap.vercel.app/",
   },
   {
     title: "Agent Speak - Voice Plugin for AI Coding Agents",
