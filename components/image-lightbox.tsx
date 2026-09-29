@@ -46,6 +46,7 @@ export default function ImageLightbox({
                 quality={95}
                 priority
                 fill
+                unoptimized={imageUrl.startsWith('http')}
                 sizes="(max-width: 1024px) 90vw, 80vw"
                 className="rounded-lg object-contain"
               />

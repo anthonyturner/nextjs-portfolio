@@ -128,6 +128,9 @@ export const experiencesData = [
   },
 ] as const;
 
+// GitHub account whose public repos are listed after the curated projects below.
+export const githubProjectsOwner = "anthonyturner";
+
 // Fallback project content. Entries with a `repo` are overlaid at request time
 // with that repo's `.github/portfolio.json` and GitHub metadata (see lib/github-projects.ts).
 export const projectsData = [
