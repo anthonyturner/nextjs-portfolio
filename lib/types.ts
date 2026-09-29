@@ -24,7 +24,12 @@ export type Project = {
   readonly videoUrl?: string;
   readonly videoPosterUrl?: string;
   readonly videoCaption?: string;
+  readonly readmeSummary?: readonly ReadmeBlock[];
+  readonly readmeUrl?: string;
 };
+export type ReadmeBlock =
+  | { readonly kind: "paragraph"; readonly text: string }
+  | { readonly kind: "list"; readonly items: readonly string[] };
 /**
  * Type definition for the context value provided by ActiveSectionContextProvider.
  * Contains the current active section and a function to update it.

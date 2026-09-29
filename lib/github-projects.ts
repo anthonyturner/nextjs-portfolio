@@ -1,5 +1,6 @@
 import { githubProjectsOwner, projectsData } from "./data";
-import type { Project } from "./types";
+import { summarizeReadme } from "./readme-summary";
+import type { Project, ReadmeBlock } from "./types";
 
 const PORTFOLIO_FILE_PATH = ".github/portfolio.json";
 const REVALIDATE_SECONDS = 600;
@@ -30,6 +31,7 @@ type PortfolioFile = {
     poster?: string;
     caption?: string;
   };
+  readme?: false;
 };
 
 const githubHeaders = (accept: string): HeadersInit => {
@@ -50,7 +52,11 @@ const githubHeaders = (accept: string): HeadersInit => {
 // (rate limit, 5xx, timeout, invalid JSON), where the content is unknown.
 type GitHubResult = { status: "ok"; data: unknown } | { status: "missing" | "error" };
 
-async function fetchGitHubJson(url: string, accept: string): Promise<GitHubResult> {
+async function fetchGitHub(
+  url: string,
+  accept: string,
+  body: "json" | "text" = "json",
+): Promise<GitHubResult> {
   try {
     const response = await fetch(url, {
       headers: githubHeaders(accept),
@@ -63,7 +69,7 @@ async function fetchGitHubJson(url: string, accept: string): Promise<GitHubResul
     if (!response.ok) {
       return { status: "error" };
     }
-    return { status: "ok", data: await response.json() };
+    return { status: "ok", data: await (body === "json" ? response.json() : response.text()) };
   } catch {
     return { status: "error" };
   }
@@ -72,14 +78,14 @@ async function fetchGitHubJson(url: string, accept: string): Promise<GitHubResul
 const repoApiUrl = (fullName: string) => `https://api.github.com/repos/${fullName}`;
 
 async function fetchRepo(fullName: string): Promise<RepoMetadata | null> {
-  const result = await fetchGitHubJson(repoApiUrl(fullName), "application/vnd.github+json");
+  const result = await fetchGitHub(repoApiUrl(fullName), "application/vnd.github+json");
   return result.status === "ok" && isRepoMetadata(result.data) ? result.data : null;
 }
 
 // Returns {} when the repo has no portfolio.json, and null when the file
 // could not be read or parsed, so callers can decide how to fail.
 async function fetchPortfolioFile(fullName: string): Promise<PortfolioFile | null> {
-  const result = await fetchGitHubJson(
+  const result = await fetchGitHub(
     `${repoApiUrl(fullName)}/contents/${PORTFOLIO_FILE_PATH}`,
     "application/vnd.github.raw+json",
   );
@@ -87,6 +93,26 @@ async function fetchPortfolioFile(fullName: string): Promise<PortfolioFile | nul
     return {};
   }
   return result.status === "ok" ? parsePortfolioFile(result.data) : null;
+}
+
+// Public repos only: a private README may hold what its owner hasn't published.
+async function fetchReadmeSummary(
+  repo: RepoMetadata,
+  portfolio: PortfolioFile,
+): Promise<readonly ReadmeBlock[] | undefined> {
+  if (repo.private || portfolio.readme === false) {
+    return undefined;
+  }
+  const result = await fetchGitHub(
+    `${repoApiUrl(repo.full_name)}/readme`,
+    "application/vnd.github.raw",
+    "text",
+  );
+  if (result.status !== "ok" || typeof result.data !== "string") {
+    return undefined;
+  }
+  const summary = summarizeReadme(result.data);
+  return summary.length ? summary : undefined;
 }
 
 function isRepoMetadata(value: unknown): value is RepoMetadata {
@@ -128,6 +154,7 @@ function parsePortfolioFile(raw: unknown): PortfolioFile | null {
         ? data.tags
         : undefined,
     website: isNonEmptyString(data.website) ? data.website : undefined,
+    readme: data.readme === false ? false : undefined,
     image: isNonEmptyString(data.image) ? data.image : undefined,
     video:
       video && isNonEmptyString(video.src)
@@ -166,6 +193,7 @@ async function withGitHubData(fallback: Project): Promise<Project | null> {
   if (portfolio.hidden) {
     return null;
   }
+  const readmeSummary = await fetchReadmeSummary(repo, portfolio);
 
   return {
     ...fallback,
@@ -182,6 +210,8 @@ async function withGitHubData(fallback: Project): Promise<Project | null> {
     videoUrl: portfolio.video?.src ?? fallback.videoUrl,
     videoPosterUrl: portfolio.video?.poster ?? fallback.videoPosterUrl,
     videoCaption: portfolio.video?.caption ?? fallback.videoCaption,
+    readmeSummary,
+    readmeUrl: readmeSummary && `${repo.html_url}#readme`,
   };
 }
 
@@ -197,6 +227,7 @@ async function toDiscoveredProject(repo: RepoMetadata): Promise<Project | null> 
   if (!description) {
     return null;
   }
+  const readmeSummary = await fetchReadmeSummary(repo, portfolio);
 
   const fallbackTags = repo.topics?.length
     ? repo.topics
@@ -216,13 +247,15 @@ async function toDiscoveredProject(repo: RepoMetadata): Promise<Project | null> 
     videoUrl: portfolio.video?.src,
     videoPosterUrl: portfolio.video?.poster,
     videoCaption: portfolio.video?.caption,
+    readmeSummary,
+    readmeUrl: readmeSummary && `${repo.html_url}#readme`,
   };
 }
 
 // Private repos only appear when curated in lib/data.ts. One page of 100 is
 // plenty for this account; add pagination if it ever grows past that.
 async function discoverProjects(curatedRepos: Set<string>): Promise<Project[]> {
-  const result = await fetchGitHubJson(
+  const result = await fetchGitHub(
     `https://api.github.com/users/${githubProjectsOwner}/repos?type=owner&sort=pushed&per_page=100`,
     "application/vnd.github+json",
   );
