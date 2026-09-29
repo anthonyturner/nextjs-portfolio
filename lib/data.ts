@@ -134,6 +134,15 @@ export const githubProjectsOwner = "anthonyturner";
 // Fallback project content. Entries with a `repo` are overlaid at request time
 // with that repo's `.github/portfolio.json` and GitHub metadata (see lib/github-projects.ts).
 export const projectsData = [
+  {
+    title: "Observatory",
+    description:
+      "An Angular dashboard that charts open pull requests, projects and coding agents as an animated space scene.",
+    tags: ["Angular", "TypeScript", "Three.js", "WebGL", "Node.js", "Vercel", "AI-Assisted Development"],
+    github: "https://github.com/anthonyturner/observatory",
+    website: "https://observatory-nu-ten.vercel.app",
+    repo: "anthonyturner/observatory",
+  },
    {
     title: "Rivals Pulse Coach",
     description:
