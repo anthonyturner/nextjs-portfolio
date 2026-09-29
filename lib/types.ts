@@ -16,8 +16,8 @@ export type Project = {
   readonly title: string;
   readonly description: string;
   readonly tags: readonly string[];
-  readonly imageUrl: StaticImageData | string;
-  readonly thumbnailUrl: StaticImageData | string;
+  readonly imageUrl?: StaticImageData | string;
+  readonly thumbnailUrl?: StaticImageData | string;
   readonly github?: string;
   readonly website?: string;
   readonly repo?: string; // "owner/name" - overlaid with GitHub data when set
