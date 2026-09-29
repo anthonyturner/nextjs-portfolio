@@ -46,42 +46,75 @@ const githubHeaders = (accept: string): HeadersInit => {
   return headers;
 };
 
-async function fetchGitHubJson<T>(url: string, accept: string): Promise<T | null> {
+// "missing" is a definite 404; "error" is anything else that stopped the read
+// (rate limit, 5xx, timeout, invalid JSON), where the content is unknown.
+type GitHubResult = { status: "ok"; data: unknown } | { status: "missing" | "error" };
+
+async function fetchGitHubJson(url: string, accept: string): Promise<GitHubResult> {
   try {
     const response = await fetch(url, {
       headers: githubHeaders(accept),
       next: { revalidate: REVALIDATE_SECONDS, tags: ["github-projects"] },
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     });
-    if (!response.ok) {
-      return null;
+    if (response.status === 404) {
+      return { status: "missing" };
     }
-    return (await response.json()) as T;
+    if (!response.ok) {
+      return { status: "error" };
+    }
+    return { status: "ok", data: await response.json() };
   } catch {
-    return null;
+    return { status: "error" };
   }
 }
 
 const repoApiUrl = (fullName: string) => `https://api.github.com/repos/${fullName}`;
 
-const fetchRepo = (fullName: string) =>
-  fetchGitHubJson<RepoMetadata>(repoApiUrl(fullName), "application/vnd.github+json");
+async function fetchRepo(fullName: string): Promise<RepoMetadata | null> {
+  const result = await fetchGitHubJson(repoApiUrl(fullName), "application/vnd.github+json");
+  return result.status === "ok" && isRepoMetadata(result.data) ? result.data : null;
+}
 
-const fetchPortfolioFile = async (fullName: string) =>
-  parsePortfolioFile(
-    await fetchGitHubJson<unknown>(
-      `${repoApiUrl(fullName)}/contents/${PORTFOLIO_FILE_PATH}`,
-      "application/vnd.github.raw+json",
-    ),
+// Returns {} when the repo has no portfolio.json, and null when the file
+// could not be read or parsed, so callers can decide how to fail.
+async function fetchPortfolioFile(fullName: string): Promise<PortfolioFile | null> {
+  const result = await fetchGitHubJson(
+    `${repoApiUrl(fullName)}/contents/${PORTFOLIO_FILE_PATH}`,
+    "application/vnd.github.raw+json",
   );
+  if (result.status === "missing") {
+    return {};
+  }
+  return result.status === "ok" ? parsePortfolioFile(result.data) : null;
+}
+
+function isRepoMetadata(value: unknown): value is RepoMetadata {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+  const repo = value as Record<string, unknown>;
+  return (
+    typeof repo.name === "string" &&
+    typeof repo.full_name === "string" &&
+    typeof repo.html_url === "string" &&
+    typeof repo.private === "boolean" &&
+    typeof repo.fork === "boolean" &&
+    typeof repo.archived === "boolean"
+  );
+}
+
+// GitHub descriptions are plain text, but some carry Markdown emphasis.
+const stripMarkdownEmphasis = (text: string) => text.replace(/\*\*|__/g, "");
 
 const isNonEmptyString = (value: unknown): value is string =>
   typeof value === "string" && value.trim().length > 0;
 
-// Drops anything malformed so a bad edit in a repo can't break the page.
-function parsePortfolioFile(raw: unknown): PortfolioFile {
-  if (!raw || typeof raw !== "object") {
-    return {};
+// Drops malformed fields so a bad edit in a repo can't break the page; a file
+// that isn't a JSON object at all counts as unreadable.
+function parsePortfolioFile(raw: unknown): PortfolioFile | null {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    return null;
   }
   const data = raw as Record<string, unknown>;
   const video = data.video as Record<string, unknown> | undefined;
@@ -120,7 +153,7 @@ async function withGitHubData(fallback: Project): Promise<Project | null> {
     return fallback;
   }
 
-  const [repo, portfolio] = await Promise.all([
+  const [repo, portfolioFile] = await Promise.all([
     fetchRepo(fallback.repo),
     fetchPortfolioFile(fallback.repo),
   ]);
@@ -128,6 +161,8 @@ async function withGitHubData(fallback: Project): Promise<Project | null> {
   if (!repo) {
     return fallback;
   }
+  // Curated projects fail open: an unreadable file just means no overrides.
+  const portfolio = portfolioFile ?? {};
   if (portfolio.hidden) {
     return null;
   }
@@ -135,7 +170,9 @@ async function withGitHubData(fallback: Project): Promise<Project | null> {
   return {
     ...fallback,
     title: portfolio.title ?? fallback.title,
-    description: portfolio.description ?? (repo.description || fallback.description),
+    description:
+      portfolio.description ??
+      (repo.description ? stripMarkdownEmphasis(repo.description) : fallback.description),
     tags: portfolio.tags ?? fallback.tags,
     imageUrl: portfolio.image ?? fallback.imageUrl,
     thumbnailUrl: portfolio.image ?? fallback.thumbnailUrl,
@@ -150,8 +187,14 @@ async function withGitHubData(fallback: Project): Promise<Project | null> {
 
 async function toDiscoveredProject(repo: RepoMetadata): Promise<Project | null> {
   const portfolio = await fetchPortfolioFile(repo.full_name);
-  const description = portfolio.description ?? repo.description?.trim();
-  if (portfolio.hidden || !description) {
+  // Discovered repos fail closed: if the file can't be read, a "hidden" flag
+  // in it can't be honoured, so leave the repo out until the next refresh.
+  if (!portfolio || portfolio.hidden) {
+    return null;
+  }
+  const description =
+    portfolio.description ?? stripMarkdownEmphasis(repo.description?.trim() ?? "");
+  if (!description) {
     return null;
   }
 
@@ -165,7 +208,6 @@ async function toDiscoveredProject(repo: RepoMetadata): Promise<Project | null> 
     title: portfolio.title ?? titleFromRepoName(repo.name),
     description,
     tags: portfolio.tags ?? fallbackTags,
-    // Text-only card unless the repo names its own image.
     imageUrl: portfolio.image,
     thumbnailUrl: portfolio.image,
     github: repo.html_url,
@@ -177,18 +219,18 @@ async function toDiscoveredProject(repo: RepoMetadata): Promise<Project | null> 
   };
 }
 
-// Public, non-fork, non-archived repos not already curated in lib/data.ts,
-// most recently pushed first. Private repos only appear when curated.
+// Private repos only appear when curated in lib/data.ts. One page of 100 is
+// plenty for this account; add pagination if it ever grows past that.
 async function discoverProjects(curatedRepos: Set<string>): Promise<Project[]> {
-  const repos = await fetchGitHubJson<RepoMetadata[]>(
+  const result = await fetchGitHubJson(
     `https://api.github.com/users/${githubProjectsOwner}/repos?type=owner&sort=pushed&per_page=100`,
     "application/vnd.github+json",
   );
-  if (!Array.isArray(repos)) {
+  if (result.status !== "ok" || !Array.isArray(result.data)) {
     return [];
   }
 
-  const candidates = repos.filter(
+  const candidates = result.data.filter(isRepoMetadata).filter(
     (repo) =>
       !repo.private &&
       !repo.fork &&
