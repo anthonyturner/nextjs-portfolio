@@ -105,7 +105,7 @@ async function fetchReadmeSummary(
   }
   const result = await fetchGitHub(
     `${repoApiUrl(repo.full_name)}/readme`,
-    "application/vnd.github.raw",
+    "application/vnd.github.raw+json",
     "text",
   );
   if (result.status !== "ok" || typeof result.data !== "string") {

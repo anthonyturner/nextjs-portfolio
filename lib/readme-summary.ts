@@ -8,6 +8,7 @@ const SUMMARY_MARKER =
 
 const FENCE = /^\s*(```|~~~)/;
 const HEADING = /^#{1,6}\s/;
+const SETEXT_UNDERLINE = /^\s*(=+|-+)\s*$/;
 const LIST_ITEM = /^\s*(?:[-*+]|\d+[.)])\s+(.*)$/;
 const RULE = /^\s*([-*_=])(\s*\1){2,}\s*$/;
 const SKIPPED_LINE = /^\s*(?:>|\||<|\[[^\]]+\]:\s)/;
@@ -20,14 +21,39 @@ const SKIPPED_LINE = /^\s*(?:>|\||<|\[[^\]]+\]:\s)/;
 export function summarizeReadme(markdown: string): ReadmeBlock[] {
   const text = markdown.replace(/\r\n?/g, "\n");
   const marked = SUMMARY_MARKER.exec(text);
-  const lines = marked ? marked[1].split("\n") : introLines(text.split("\n"));
-  return capLength(toBlocks(lines));
+  // Comments are stripped only after the marker, which is itself a comment, is found.
+  const source = (marked ? marked[1] : text).replace(/<!--[\s\S]*?-->/g, "");
+  const lines = toAtxHeadings(source.split("\n"));
+  return capLength(toBlocks(marked ? lines : introLines(lines)));
 }
+
+// Rewrites underlined headings ("Title" over "===" or "---") as "#" headings.
+function toAtxHeadings(lines: string[]): string[] {
+  const out: string[] = [];
+  let inFence = false;
+
+  for (const line of lines) {
+    if (FENCE.test(line)) {
+      inFence = !inFence;
+    }
+    const previous = out.at(-1);
+    const underline = inFence ? null : SETEXT_UNDERLINE.exec(line);
+    if (underline && previous?.trim() && !isStructural(previous)) {
+      out[out.length - 1] = `${underline[1].startsWith("=") ? "#" : "##"} ${previous.trim()}`;
+    } else {
+      out.push(line);
+    }
+  }
+  return out;
+}
+
+const isStructural = (line: string) =>
+  FENCE.test(line) || HEADING.test(line) || LIST_ITEM.test(line) || RULE.test(line) || SKIPPED_LINE.test(line);
 
 function introLines(lines: string[]): string[] {
   const intro: string[] = [];
   let inFence = false;
-  let seenTitle = !lines.some((line) => /^#\s/.test(line));
+  let seenTitle = !hasTitle(lines);
 
   for (const line of lines) {
     if (FENCE.test(line)) {
@@ -44,6 +70,17 @@ function introLines(lines: string[]): string[] {
     }
   }
   return intro;
+}
+
+function hasTitle(lines: string[]): boolean {
+  let inFence = false;
+  return lines.some((line) => {
+    if (FENCE.test(line)) {
+      inFence = !inFence;
+      return false;
+    }
+    return !inFence && /^#\s/.test(line);
+  });
 }
 
 function toBlocks(lines: string[]): ReadmeBlock[] {
@@ -91,17 +128,25 @@ function toBlocks(lines: string[]): ReadmeBlock[] {
   return blocks;
 }
 
+// A link target, allowing one level of parentheses as in Wikipedia URLs.
+const TARGET = String.raw`\((?:[^()]|\([^()]*\))*\)`;
+const ENTITIES: Record<string, string> = { amp: "&", lt: "<", gt: ">", quot: '"', "#39": "'", nbsp: " " };
+
 function cleanInline(text: string): string {
+  // Code spans are set aside first so the tag and emphasis rules leave them intact.
+  const codeSpans: string[] = [];
   return text
-    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
-    .replace(/\[\s*\]\([^)]*\)/g, "")
-    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/`([^`]+)`/g, (_, code: string) => `\u0000${codeSpans.push(code) - 1}\u0000`)
+    .replace(new RegExp(String.raw`!\[[^\]]*\]${TARGET}`, "g"), "")
+    .replace(new RegExp(String.raw`\[\s*\]${TARGET}`, "g"), "")
+    .replace(new RegExp(String.raw`\[([^\]]+)\]${TARGET}`, "g"), "$1")
     .replace(/\[([^\]]+)\]\[[^\]]*\]/g, "$1")
     .replace(/<[^>]+>/g, "")
-    .replace(/`([^`]+)`/g, "$1")
+    .replace(/&(amp|lt|gt|quot|#39|nbsp);/g, (_, name: string) => ENTITIES[name])
     .replace(/(\*\*|__)(?=\S)(.+?)(?<=\S)\1/g, "$2")
     .replace(/(?<![\w*])\*(?=\S)(.+?)(?<=\S)\*(?![\w*])/g, "$1")
     .replace(/(?<![\w_])_(?=\S)(.+?)(?<=\S)_(?![\w_])/g, "$1")
+    .replace(/\u0000(\d+)\u0000/g, (_, index: string) => codeSpans[Number(index)])
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -130,6 +175,9 @@ function capLength(blocks: ReadmeBlock[]): ReadmeBlock[] {
         }
         items.push(item);
         used += item.length;
+      }
+      if (!items.length && !kept.length) {
+        items.push(truncateAtSentence(block.items[0], MAX_SUMMARY_CHARS));
       }
       if (items.length) {
         kept.push({ kind: "list", items });
