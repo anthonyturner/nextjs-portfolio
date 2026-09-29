@@ -60,6 +60,13 @@ export default function Project({
               <Image
                 src={thumbnailUrl}
                 alt="Project I worked on"
+                // String images come from a repo's portfolio.json: no intrinsic
+                // size, and a remote host that isn't in images.remotePatterns.
+                {...(typeof thumbnailUrl === 'string' && {
+                  width: 1200,
+                  height: 600,
+                  unoptimized: thumbnailUrl.startsWith('http'),
+                })}
                 quality={95}
                 className="rounded-lg"
               />
