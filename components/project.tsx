@@ -6,6 +6,7 @@ import { useRef, useState } from 'react'
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa'
 import ImageLightbox from './image-lightbox'
 import ProjectVideo from './project-video'
+import ReadmeSummary from './readme-summary'
 
 export default function Project({
   title,
@@ -18,6 +19,8 @@ export default function Project({
   videoUrl,
   videoPosterUrl,
   videoCaption,
+  readmeSummary,
+  readmeUrl,
 }: ProjectProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
@@ -74,6 +77,7 @@ export default function Project({
           )}
           <h3 className="text-2xl font-semibold">{title}</h3>
           <p className="mt-2 leading-relaxed text-gray-700">{description}</p>
+          {readmeSummary && <ReadmeSummary blocks={readmeSummary} url={readmeUrl} />}
           {videoUrl && (
             <ProjectVideo
               src={videoUrl}
