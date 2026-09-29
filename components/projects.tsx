@@ -1,11 +1,11 @@
 'use client'
-import { projectsData } from '@/lib/data'
 import { useSectionInView } from '@/lib/hooks'
+import type { Project as ProjectData } from '@/lib/types'
 import React from 'react'
 import Project from './project'
 import SectionHeading from './section-heading'
 
-export default function Projects() {
+export default function Projects({ projects }: { projects: ProjectData[] }) {
   const { ref } = useSectionInView('Projects', 0.25)
 
   return (
@@ -13,7 +13,7 @@ export default function Projects() {
       <SectionHeading>My projects</SectionHeading>
       <div>
         {/* prettier-ignore */}
-        {projectsData.map((project, i) => (
+        {projects.map((project, i) => (
           <React.Fragment key={i}>
             <Project {...project} />
           </React.Fragment>

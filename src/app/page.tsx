@@ -6,15 +6,21 @@ import Home from '@/components/home'
 import Projects from '@/components/projects'
 import SectionDivider from '@/components/section-divider'
 import Skills from '@/components/skills'
+import { getProjects } from '@/lib/github-projects'
 
-export default function Page() {
+// Refresh GitHub-sourced project data at most once an hour.
+export const revalidate = 3600
+
+export default async function Page() {
+  const projects = await getProjects()
+
   return (
     <main className="flex flex-col items-center">
       <Home />
       <SectionDivider />
       <About />
       <SectionDivider />
-      <Projects />
+      <Projects projects={projects} />
       <SectionDivider />
       <Skills />
       <SectionDivider /> 
