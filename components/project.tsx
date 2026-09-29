@@ -1,9 +1,10 @@
 'use client'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 import type { Project as ProjectProps } from '@/lib/types'
 import { useRef, useState } from 'react'
-import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa'
+import { FaBookOpen, FaExternalLinkAlt, FaGithub } from 'react-icons/fa'
 import ImageLightbox from './image-lightbox'
 import ProjectVideo from './project-video'
 import ReadmeSummary from './readme-summary'
@@ -21,6 +22,7 @@ export default function Project({
   videoCaption,
   readmeSummary,
   readmeUrl,
+  caseStudyUrl,
 }: ProjectProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
@@ -101,7 +103,22 @@ export default function Project({
               </li>
             ))}
           </ul>
-          <div className="flex gap-4 mt-8 clear-both">
+          <div className="flex flex-wrap gap-4 mt-8 clear-both">
+            {caseStudyUrl && (
+              <Link
+                href={caseStudyUrl}
+                className="
+                  flex items-center gap-2 px-3 py-2
+                  text-sm font-medium
+                  bg-amber-600 text-white rounded-lg
+                  hover:bg-amber-700 transition
+                "
+                aria-label={`Read the ${title} case study`}
+              >
+                <FaBookOpen size={15} />
+                Case study
+              </Link>
+            )}
             {github && (
               <a
                 href={github}

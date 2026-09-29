@@ -4,9 +4,12 @@ import { useActiveSectionContext } from '@/context/active-section-context'
 import { links } from '@/lib/data'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export default function Header() {
   const { activeSection, setActiveSection, setTimeOfLastClick } = useActiveSectionContext()
+  // The links are home-page sections, so other pages point back to them and mark none active.
+  const isHome = usePathname() === '/'
 
   return (
     <header className="z-[999] relative">
@@ -35,7 +38,7 @@ export default function Header() {
               <Link
                 className="flex w-full items-center px-3 py-3 hover:text-gray-950 transition
                 dark:text-gray-500 dark:hover:text-gray-300"
-                href={link.hash}
+                href={isHome ? link.hash : `/${link.hash}`}
                 onClick={() => {
                   setActiveSection(link.name)
                   if (typeof setTimeOfLastClick === 'function') {
@@ -44,7 +47,7 @@ export default function Header() {
                 }}
               >
                 {link.name}
-                {link.name === activeSection && (
+                {isHome && link.name === activeSection && (
                   <motion.span
                     className="bg-gray-100 rounded-full absolute inset-0 -z-10"
                     layoutId="activeSection"
