@@ -178,6 +178,7 @@ function capLength(blocks: ReadmeBlock[]): ReadmeBlock[] {
       }
       if (!items.length && !kept.length) {
         items.push(truncateAtSentence(block.items[0], MAX_SUMMARY_CHARS));
+        used += items[0].length;
       }
       if (items.length) {
         kept.push({ kind: "list", items });
