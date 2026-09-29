@@ -29,9 +29,11 @@ const githubHeaders = (accept: string): HeadersInit => {
     Accept: accept,
     "X-GitHub-Api-Version": "2022-11-28",
   };
-  // Optional: needed for private repos and a higher rate limit.
-  if (process.env.GITHUB_TOKEN) {
-    headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  // Optional: needed for private repos and a higher rate limit. Trimmed because
+  // a stray newline from a pasted value makes the header invalid.
+  const token = process.env.GITHUB_TOKEN?.trim();
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
   }
   return headers;
 };
