@@ -1,22 +1,30 @@
-import { projectsData } from "./data";
+import { githubProjectsOwner, projectsData } from "./data";
 import type { Project } from "./types";
 
 const PORTFOLIO_FILE_PATH = ".github/portfolio.json";
-const REVALIDATE_SECONDS = 3600;
+const REVALIDATE_SECONDS = 600;
 const REQUEST_TIMEOUT_MS = 5000;
 
 type RepoMetadata = {
+  name: string;
+  full_name: string;
   html_url: string;
   description: string | null;
   homepage: string | null;
   private: boolean;
+  fork: boolean;
+  archived: boolean;
+  language: string | null;
+  topics?: string[];
 };
 
 type PortfolioFile = {
+  hidden?: boolean;
   title?: string;
   description?: string;
   tags?: string[];
   website?: string;
+  image?: string;
   video?: {
     src: string;
     poster?: string;
@@ -54,6 +62,19 @@ async function fetchGitHubJson<T>(url: string, accept: string): Promise<T | null
   }
 }
 
+const repoApiUrl = (fullName: string) => `https://api.github.com/repos/${fullName}`;
+
+const fetchRepo = (fullName: string) =>
+  fetchGitHubJson<RepoMetadata>(repoApiUrl(fullName), "application/vnd.github+json");
+
+const fetchPortfolioFile = async (fullName: string) =>
+  parsePortfolioFile(
+    await fetchGitHubJson<unknown>(
+      `${repoApiUrl(fullName)}/contents/${PORTFOLIO_FILE_PATH}`,
+      "application/vnd.github.raw+json",
+    ),
+  );
+
 const isNonEmptyString = (value: unknown): value is string =>
   typeof value === "string" && value.trim().length > 0;
 
@@ -66,6 +87,7 @@ function parsePortfolioFile(raw: unknown): PortfolioFile {
   const video = data.video as Record<string, unknown> | undefined;
 
   return {
+    hidden: data.hidden === true,
     title: isNonEmptyString(data.title) ? data.title : undefined,
     description: isNonEmptyString(data.description) ? data.description : undefined,
     tags:
@@ -73,6 +95,7 @@ function parsePortfolioFile(raw: unknown): PortfolioFile {
         ? data.tags
         : undefined,
     website: isNonEmptyString(data.website) ? data.website : undefined,
+    image: isNonEmptyString(data.image) ? data.image : undefined,
     video:
       video && isNonEmptyString(video.src)
         ? {
@@ -84,31 +107,38 @@ function parsePortfolioFile(raw: unknown): PortfolioFile {
   };
 }
 
-async function withGitHubData(fallback: Project): Promise<Project> {
+// "cna-study-app" -> "Cna Study App"; a portfolio.json title reads better.
+const titleFromRepoName = (name: string) =>
+  name
+    .split(/[-_]+/)
+    .filter(Boolean)
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ");
+
+async function withGitHubData(fallback: Project): Promise<Project | null> {
   if (!fallback.repo) {
     return fallback;
   }
 
-  const apiBase = `https://api.github.com/repos/${fallback.repo}`;
-  const [repo, portfolioRaw] = await Promise.all([
-    fetchGitHubJson<RepoMetadata>(apiBase, "application/vnd.github+json"),
-    fetchGitHubJson<unknown>(
-      `${apiBase}/contents/${PORTFOLIO_FILE_PATH}`,
-      "application/vnd.github.raw+json",
-    ),
+  const [repo, portfolio] = await Promise.all([
+    fetchRepo(fallback.repo),
+    fetchPortfolioFile(fallback.repo),
   ]);
 
   if (!repo) {
     return fallback;
   }
-
-  const portfolio = parsePortfolioFile(portfolioRaw);
+  if (portfolio.hidden) {
+    return null;
+  }
 
   return {
     ...fallback,
     title: portfolio.title ?? fallback.title,
     description: portfolio.description ?? (repo.description || fallback.description),
     tags: portfolio.tags ?? fallback.tags,
+    imageUrl: portfolio.image ?? fallback.imageUrl,
+    thumbnailUrl: portfolio.image ?? fallback.thumbnailUrl,
     // Private repos 404 for visitors, so only link public ones.
     github: repo.private ? undefined : repo.html_url,
     website: portfolio.website ?? (repo.homepage || fallback.website),
@@ -118,10 +148,78 @@ async function withGitHubData(fallback: Project): Promise<Project> {
   };
 }
 
+async function toDiscoveredProject(repo: RepoMetadata): Promise<Project | null> {
+  const portfolio = await fetchPortfolioFile(repo.full_name);
+  const description = portfolio.description ?? repo.description?.trim();
+  if (portfolio.hidden || !description) {
+    return null;
+  }
+
+  const fallbackTags = repo.topics?.length
+    ? repo.topics
+    : repo.language
+      ? [repo.language]
+      : [];
+
+  return {
+    title: portfolio.title ?? titleFromRepoName(repo.name),
+    description,
+    tags: portfolio.tags ?? fallbackTags,
+    // Text-only card unless the repo names its own image.
+    imageUrl: portfolio.image,
+    thumbnailUrl: portfolio.image,
+    github: repo.html_url,
+    website: portfolio.website ?? (repo.homepage || undefined),
+    repo: repo.full_name,
+    videoUrl: portfolio.video?.src,
+    videoPosterUrl: portfolio.video?.poster,
+    videoCaption: portfolio.video?.caption,
+  };
+}
+
+// Public, non-fork, non-archived repos not already curated in lib/data.ts,
+// most recently pushed first. Private repos only appear when curated.
+async function discoverProjects(curatedRepos: Set<string>): Promise<Project[]> {
+  const repos = await fetchGitHubJson<RepoMetadata[]>(
+    `https://api.github.com/users/${githubProjectsOwner}/repos?type=owner&sort=pushed&per_page=100`,
+    "application/vnd.github+json",
+  );
+  if (!Array.isArray(repos)) {
+    return [];
+  }
+
+  const candidates = repos.filter(
+    (repo) =>
+      !repo.private &&
+      !repo.fork &&
+      !repo.archived &&
+      // The profile README repo is not a project.
+      repo.name.toLowerCase() !== githubProjectsOwner.toLowerCase() &&
+      !curatedRepos.has(repo.full_name.toLowerCase()),
+  );
+
+  const projects = await Promise.all(candidates.map(toDiscoveredProject));
+  return projects.filter((project): project is Project => project !== null);
+}
+
 /**
- * Returns the portfolio projects, preferring live GitHub data for entries that
- * name a `repo` and falling back to `lib/data.ts` when GitHub is unreachable.
+ * Returns the curated projects from `lib/data.ts` (overlaid with live GitHub
+ * data where they name a `repo`), followed by any other public repos of
+ * `githubProjectsOwner`. Falls back to `lib/data.ts` when GitHub is unreachable.
  */
 export async function getProjects(): Promise<Project[]> {
-  return Promise.all((projectsData as readonly Project[]).map(withGitHubData));
+  const curated = projectsData as readonly Project[];
+  const curatedRepos = new Set(
+    curated.flatMap((project) => (project.repo ? [project.repo.toLowerCase()] : [])),
+  );
+
+  const [curatedProjects, discoveredProjects] = await Promise.all([
+    Promise.all(curated.map(withGitHubData)),
+    discoverProjects(curatedRepos),
+  ]);
+
+  return [
+    ...curatedProjects.filter((project): project is Project => project !== null),
+    ...discoveredProjects,
+  ];
 }

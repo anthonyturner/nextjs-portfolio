@@ -8,8 +8,8 @@ import SectionDivider from '@/components/section-divider'
 import Skills from '@/components/skills'
 import { getProjects } from '@/lib/github-projects'
 
-// Refresh GitHub-sourced project data at most once an hour.
-export const revalidate = 3600
+// Refresh GitHub-sourced project data at most every 10 minutes.
+export const revalidate = 600
 
 export default async function Page() {
   const projects = await getProjects()
