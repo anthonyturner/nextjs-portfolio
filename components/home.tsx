@@ -45,7 +45,7 @@ export default function Home() {
         </div>
       </div>
       <motion.h1
-        className="mb-10 mt-4 px-4 text-xl font-normal !leading-[1.6] tracking-tight sm:text-[1.75rem]"
+        className="mb-10 mt-4 px-4 text-xl font-normal !leading-[1.6] sm:text-[1.75rem] sm:tracking-tight"
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
       >
