@@ -26,6 +26,25 @@ export type Project = {
   readonly videoCaption?: string;
   readonly readmeSummary?: readonly ReadmeBlock[];
   readonly readmeUrl?: string;
+  readonly caseStudyUrl?: string;
+};
+export type CaseStudyListItem = { readonly lead?: string; readonly text: string };
+export type CaseStudyBlock =
+  | { readonly kind: "paragraph"; readonly text: string }
+  | { readonly kind: "list"; readonly ordered?: boolean; readonly items: readonly CaseStudyListItem[] }
+  | { readonly kind: "table"; readonly columns: readonly [string, string]; readonly rows: readonly (readonly [string, string])[] };
+export type CaseStudy = {
+  readonly title: string;
+  readonly byline: string;
+  readonly summary: string;
+  readonly projectName: string;
+  readonly repoUrl: string;
+  readonly liveUrl: string;
+  readonly builtWith: readonly string[];
+  readonly stats: readonly { readonly value: string; readonly label: string }[];
+  readonly video: { readonly src: string; readonly poster: string; readonly caption: string };
+  readonly sections: readonly { readonly heading: string; readonly blocks: readonly CaseStudyBlock[] }[];
+  readonly timeline: string;
 };
 export type ReadmeBlock =
   | { readonly kind: "paragraph"; readonly text: string }

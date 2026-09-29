@@ -2,6 +2,7 @@
 
 - Preserve the Next.js App Router structure under `src/app`.
 - Keep page composition in `src/app/page.tsx` and shared layout concerns in `src/app/layout.tsx`.
+- Case studies are the one kind of sub-page: `src/app/case-studies/<slug>/page.tsx` renders `components/case-study.tsx` from a `CaseStudy` in `lib/data.ts`, and the project entry links to it with `caseStudyUrl`. The header's section links point back to `/` from any page but the home page.
 - Keep reusable visual sections in `components/`.
 - Keep global or cross-section state in dedicated context files under `context/` when needed.
 - Treat `lib/data.ts` as the content layer for portfolio text, links, projects, experience, skills, and certifications.
