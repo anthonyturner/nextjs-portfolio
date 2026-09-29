@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "project": {
+    "name": "portfolio",
+    "summary": "A responsive portfolio site built with Next.js, TypeScript and Tailwind CSS."
+  },
+  "commands": {
+    "install": "npm ci",
+    "build": "npm run build",
+    "test": "none yet",
+    "lint": "npm run lint"
+  },
+  "repo": {
+    "defaultBranch": "main"
+  },
+  "autonomy": "merge",
+  "tools": [
+    "copilot",
+    "codex"
+  ],
+  "packs": [
+    "node-ts"
+  ]
+}
