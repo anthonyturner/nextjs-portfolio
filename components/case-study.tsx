@@ -105,8 +105,8 @@ export default function CaseStudyArticle({ caseStudy }: { caseStudy: CaseStudy }
         </ul>
       </header>
 
-      <section className="mt-12" aria-labelledby="case-study-summary">
-        <h2 id="case-study-summary" className="mb-4 text-2xl font-semibold text-gray-950">
+      <section className="mt-12">
+        <h2 className="mb-4 text-2xl font-semibold text-gray-950">
           In one paragraph
         </h2>
         <p>{summary}</p>

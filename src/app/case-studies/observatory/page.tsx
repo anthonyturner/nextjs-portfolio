@@ -5,7 +5,7 @@ import type { Metadata } from 'next'
 const path = '/case-studies/observatory'
 const title = 'Case study: Observatory | Anthony Turner'
 const description =
-  'How Anthony Turner directed AI agents to migrate a 16,288-line prototype into a tested, production Angular app in five days: 105 merged pull requests and about 1,500 automated tests.'
+  'How Anthony Turner directed AI agents to migrate a prototype of 16,288 lines of single-file HTML into a tested, production Angular app in five days: 105 merged pull requests and about 1,500 automated tests.'
 const image = {
   url: observatoryCaseStudy.video.poster,
   width: 1280,

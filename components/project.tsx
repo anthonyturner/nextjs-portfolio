@@ -110,8 +110,9 @@ export default function Project({
                 className="
                   flex items-center gap-2 px-3 py-2
                   text-sm font-medium
-                  bg-amber-600 text-white rounded-lg
-                  hover:bg-amber-700 transition
+                  bg-amber-700 text-white rounded-lg
+                  hover:bg-amber-800 transition
+                  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600
                 "
                 aria-label={`Read the ${title} case study`}
               >
