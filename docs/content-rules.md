@@ -2,6 +2,7 @@
 
 - Keep portfolio copy, project details, experience entries, and certification details consistent with the existing data-driven sections.
 - Update `lib/data.ts` before duplicating content directly inside components.
+- Projects with a `repo` field take their card copy, links and video from that repo's `.github/portfolio.json` (via `lib/github-projects.ts`); edit it there first. The `lib/data.ts` entry is the fallback and still owns the images.
 - Keep media references aligned with the `public/` directory structure and the current image-import pattern.
 - Preserve the current section order and navigation labels unless the user asks to change them.
 - Avoid introducing new page architecture or content taxonomy unless the request explicitly calls for it.

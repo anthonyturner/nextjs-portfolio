@@ -12,6 +12,19 @@ export type JobCertification = {
   readonly website: string;
   readonly pdfUrl?: string; // Optional with '?'
 };
+export type Project = {
+  readonly title: string;
+  readonly description: string;
+  readonly tags: readonly string[];
+  readonly imageUrl: StaticImageData | string;
+  readonly thumbnailUrl: StaticImageData | string;
+  readonly github?: string;
+  readonly website?: string;
+  readonly repo?: string; // "owner/name" - overlaid with GitHub data when set
+  readonly videoUrl?: string;
+  readonly videoPosterUrl?: string;
+  readonly videoCaption?: string;
+};
 /**
  * Type definition for the context value provided by ActiveSectionContextProvider.
  * Contains the current active section and a function to update it.

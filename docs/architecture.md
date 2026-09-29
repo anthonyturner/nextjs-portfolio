@@ -5,6 +5,7 @@
 - Keep reusable visual sections in `components/`.
 - Keep global or cross-section state in dedicated context files under `context/` when needed.
 - Treat `lib/data.ts` as the content layer for portfolio text, links, projects, experience, skills, and certifications.
+- `lib/github-projects.ts` overlays project entries that name a `repo` with GitHub data on the server (hourly revalidation, optional `GITHUB_TOKEN` for private repos), falling back to `lib/data.ts`.
 - Use `lib/utils.ts`, `lib/hooks.ts`, and `lib/types.ts` for reusable helpers, hooks, and shared typing rather than duplicating logic.
 
 ## Component Boundaries

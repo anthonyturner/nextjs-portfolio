@@ -1,13 +1,11 @@
 'use client'
-import { projectsData } from '@/lib/data'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
+import type { Project as ProjectProps } from '@/lib/types'
 import { useRef, useState } from 'react'
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa'
 import ImageLightbox from './image-lightbox'
 import ProjectVideo from './project-video'
-
-type ProjectProps = (typeof projectsData)[number]
 
 export default function Project({
   title,
@@ -20,13 +18,7 @@ export default function Project({
   videoUrl,
   videoPosterUrl,
   videoCaption,
-}: Partial<ProjectProps> & {
-  github?: string
-  website?: string
-  videoUrl?: string
-  videoPosterUrl?: string
-  videoCaption?: string
-}) {
+}: ProjectProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const { scrollYProgress } = useScroll({
@@ -78,7 +70,7 @@ export default function Project({
           {videoUrl && (
             <ProjectVideo
               src={videoUrl}
-              title={title || ''}
+              title={title}
               poster={videoPosterUrl}
               caption={videoCaption}
             />
@@ -139,7 +131,7 @@ export default function Project({
       <ImageLightbox
         isOpen={isLightboxOpen}
         imageUrl={typeof imageUrl === 'string' ? imageUrl : (typeof thumbnailUrl === 'string' ? thumbnailUrl : thumbnailUrl?.src || '')}
-        title={title || ''}
+        title={title}
         onClose={() => setIsLightboxOpen(false)}
       />
     </>
