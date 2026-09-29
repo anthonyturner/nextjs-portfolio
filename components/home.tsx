@@ -45,15 +45,15 @@ export default function Home() {
         </div>
       </div>
       <motion.h1
-        className="mb-10 mt-4 px-4 text-2xl font-medium !leading-[1.5] sm:text-4xl"
+        className="mb-10 mt-4 px-4 text-xl font-normal !leading-[1.6] sm:text-[1.75rem] sm:tracking-tight"
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <span className="font-bold">Hello, I&apos;m Anthony.</span> I&apos;m a{' '}
-        <span className="font-bold">full-stack developer and AI-assisted software engineer</span> with{' '}
-        <span className="font-bold">10+ years</span> delivering enterprise applications. I specialize in{' '}
-        <span className="font-bold">C#, .NET, ASP.NET Core, Angular, TypeScript, SQL Server, and Azure</span>, and I use{' '}
-        <span className="font-bold">GitHub Copilot, OpenAI Codex, and prompt engineering</span> to accelerate design,
+        <span className="font-semibold">Hello, I&apos;m Anthony.</span> I&apos;m a{' '}
+        <span className="font-semibold">full-stack developer and AI-assisted software engineer</span> with{' '}
+        <span className="font-semibold">10+ years</span> delivering enterprise applications. I specialize in{' '}
+        <span className="font-semibold">C#, .NET, ASP.NET Core, Angular, TypeScript, SQL Server, and Azure</span>, and I use{' '}
+        <span className="font-semibold">GitHub Copilot, OpenAI Codex, and prompt engineering</span> to accelerate design,
         implementation, debugging, testing, and delivery.
       </motion.h1>
       <motion.div
