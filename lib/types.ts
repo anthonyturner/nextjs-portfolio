@@ -33,13 +33,20 @@ export type CaseStudyBlock =
   | { readonly kind: "paragraph"; readonly text: string }
   | { readonly kind: "list"; readonly ordered?: boolean; readonly items: readonly CaseStudyListItem[] }
   | { readonly kind: "table"; readonly columns: readonly [string, string]; readonly rows: readonly (readonly [string, string])[] };
+export type CaseStudyLink = {
+  readonly label: string;
+  readonly href: string;
+  readonly kind: "github" | "website";
+};
 export type CaseStudy = {
+  readonly slug: string;
   readonly title: string;
   readonly byline: string;
   readonly summary: string;
+  readonly metaDescription: string;
   readonly projectName: string;
-  readonly repoUrl: string;
-  readonly liveUrl: string;
+  readonly links: readonly CaseStudyLink[];
+  readonly socialImage: { readonly url: string; readonly width: number; readonly height: number; readonly alt: string };
   readonly builtWith: readonly string[];
   readonly stats: readonly { readonly value: string; readonly label: string }[];
   readonly video: { readonly src: string; readonly poster: string; readonly caption: string };
