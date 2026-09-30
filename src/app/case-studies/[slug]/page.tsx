@@ -8,7 +8,7 @@ type CaseStudyPageProps = { params: Promise<{ slug: string }> }
 // Only the case studies in lib/data.ts exist; any other slug is a 404.
 export const dynamicParams = false
 
-export function generateStaticParams() {
+export function generateStaticParams(): { slug: string }[] {
   return caseStudies.map(({ slug }) => ({ slug }))
 }
 

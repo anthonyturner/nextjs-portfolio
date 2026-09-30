@@ -588,7 +588,7 @@ const rivalsPulseCaseStudy: CaseStudy = {
     alt: "Marvel Rivals hero select, where the recorded voice-assistant session begins",
   },
   summary:
-    "Rivals Pulse is a companion for the game Marvel Rivals, in two parts. The desktop app runs inside the game through Overwolf: it reads live match events and draws a heads-up display of rosters, stats and match state, and a voice assistant answers questions out loud mid-match without the player leaving the game. The web app at rivalspulse.com is a coaching site with hero guides, counters, a team builder and meta reports, and it doubles as the data service the desktop app reads from. I built both on my own, directing AI coding agents under a tracked, issue-first process: 261 merged pull requests and about 1,910 automated tests on the desktop app, and 139 production deployments of the web app.",
+    "Rivals Pulse is a companion for the game Marvel Rivals, in two parts. The desktop app runs inside the game through Overwolf: it reads live match events and draws a heads-up display of rosters, stats and match state, and a voice assistant answers questions out loud mid-match without the player leaving the game. The web app at rivalspulse.com is a coaching site with hero guides, counters, a team builder and meta reports, and it doubles as the data service the desktop app reads from. I built both on my own, directing AI coding agents through tracked issues, pull requests and reviews: 261 merged pull requests and about 1,910 automated tests on the desktop app, and 87 production releases of the web app.",
   builtWith: [
     "Angular 21 / 20",
     "TypeScript",
@@ -604,8 +604,8 @@ const rivalsPulseCaseStudy: CaseStudy = {
   stats: [
     { value: "261", label: "merged pull requests on the desktop app" },
     { value: "~1,910", label: "automated tests on the desktop app" },
-    { value: "16", label: "Overwolf windows: a dashboard and 15 in-game" },
-    { value: "139", label: "production deployments of the web app" },
+    { value: "16", label: "Overwolf windows: a dashboard and 15 overlays" },
+    { value: "87", label: "production releases of the web app" },
   ],
   video: {
     src: "/videos/rivals-pulse-voice-demo.mp4",
@@ -630,7 +630,7 @@ const rivalsPulseCaseStudy: CaseStudy = {
             },
             {
               lead: "Out loud:",
-              text: "a push-to-talk voice assistant with on-screen subtitles and a spoken end-of-match wrap-up.",
+              text: "a hotkey-activated voice assistant with on-screen subtitles and a spoken end-of-match wrap-up.",
             },
             {
               lead: "On the desktop:",
@@ -687,11 +687,11 @@ const rivalsPulseCaseStudy: CaseStudy = {
           items: [
             {
               lead: "Answers come from the app, not the model's memory.",
-              text: "The agent calls about six tools that wrap the app's own services (counters, glossary, rosters, player stats, session record and match info), so it answers from the live match.",
+              text: "The agent calls eight tools that wrap the app's own services (counters, glossary, team composition, player stats, player comparison, hero guides, session record and match info), so it answers from the live match.",
             },
             {
               lead: "Latency against cost.",
-              text: "A toggle hotkey opens the session, and it closes after 60 seconds idle, balancing connection time against per-minute billing. It is off by default.",
+              text: "A toggle hotkey opens the session, and it closes after 15 seconds of silence, with a hard cap on session length, balancing connection time against per-minute billing. It is off by default.",
             },
             {
               lead: "Secured sessions.",
@@ -699,7 +699,7 @@ const rivalsPulseCaseStudy: CaseStudy = {
             },
             {
               lead: "Platform rules first.",
-              text: "The game's publisher limits what an overlay may do with other players' data. That rule is written down once as a decision record and enforced in what the assistant will answer.",
+              text: "The overlay treats other players' data conservatively, following the publisher's rules for overlays as the project understands them. That approach is written down once as a decision record and enforced in what the assistant will answer.",
             },
           ],
         },
@@ -743,11 +743,11 @@ const rivalsPulseCaseStudy: CaseStudy = {
           items: [
             {
               lead: "Issue-first, from July 2026.",
-              text: "Every change on the desktop app starts as a GitHub issue, gets a branch and a pull request, is reviewed, and is merged: 335 issues and 261 merged pull requests.",
+              text: "Since July, changes on the desktop app go from issue to branch, pull request, review and merge: 335 issues and 261 merged pull requests.",
             },
             {
               lead: "Written rules for the agents.",
-              text: "An AGENTS.md, role definitions for product, refinement, UX, engineering and QA agents, and nine Architecture Decision Records.",
+              text: "A written agent guide, role definitions for product, refinement, UX, engineering and QA agents, and nine Architecture Decision Records.",
             },
             {
               lead: "Visible AI authorship.",
@@ -766,7 +766,7 @@ const rivalsPulseCaseStudy: CaseStudy = {
       ],
     },
     {
-      heading: "Mistakes, and what I took from them",
+      heading: "Mistakes along the way",
       blocks: [
         {
           kind: "list",
@@ -776,12 +776,12 @@ const rivalsPulseCaseStudy: CaseStudy = {
               text: "A bad merge once left a stray brace and dropped a fix on main, breaking the build. A follow-up restored both.",
             },
             {
-              lead: "Widgets built before they were needed.",
-              text: "Four HUD widgets and their services were built, then removed. Cutting them kept the overlay small; building them cost time a user story would have saved.",
+              lead: "Widgets built, then cut.",
+              text: "Four HUD widgets and their services were built, then removed to reduce clutter.",
             },
             {
               lead: "Uneven test coverage.",
-              text: "The web app has 30 tests against the desktop app's 1,910, and a month of stale season data is what that gap cost. Its fix came with a regression test.",
+              text: "The web app has 30 tests against the desktop app's 1,910. Its stale-season bug lasted about a month before it was caught, and the fix added a regression test.",
             },
           ],
         },
@@ -807,7 +807,7 @@ const rivalsPulseCaseStudy: CaseStudy = {
             },
             {
               lead: "Directing AI with discipline:",
-              text: "hundreds of tracked, reviewed changes, with decisions written down.",
+              text: "hundreds of tracked changes through pull requests, with decisions written down.",
             },
           ],
         },
