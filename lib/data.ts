@@ -588,7 +588,7 @@ const rivalsPulseCaseStudy: CaseStudy = {
     alt: "Marvel Rivals hero select, where the recorded voice-assistant session begins",
   },
   summary:
-    "Rivals Pulse is a companion for the game Marvel Rivals, in two parts. The desktop app runs inside the game through Overwolf: it reads live match events and draws a heads-up display of rosters, stats and match state, and a voice assistant answers questions out loud mid-match without the player leaving the game. The web app at rivalspulse.com is a coaching site with hero guides, counters, a team builder and meta reports, and it doubles as the data service the desktop app reads from. I built both on my own, directing AI coding agents through tracked issues, pull requests and reviews: 261 merged pull requests and about 1,910 automated tests on the desktop app, and 87 production releases of the web app.",
+    "Rivals Pulse is a companion for the game Marvel Rivals, in two parts. The desktop app runs inside the game through Overwolf: it reads live match events and draws a heads-up display of rosters, stats and match state, and a voice assistant answers questions out loud mid-match without the player leaving the game. The web app at rivalspulse.com is a coaching site with hero guides, counters, a team builder and meta reports, and it doubles as the data service the desktop app reads from. I built both on my own, directing AI coding agents through tracked issues, pull requests and reviews: 261 merged pull requests and about 1,910 automated tests on the desktop app, and 85 production releases of the web app.",
   builtWith: [
     "Angular 21 / 20",
     "TypeScript",
@@ -605,7 +605,7 @@ const rivalsPulseCaseStudy: CaseStudy = {
     { value: "261", label: "merged pull requests on the desktop app" },
     { value: "~1,910", label: "automated tests on the desktop app" },
     { value: "16", label: "Overwolf windows: a dashboard and 15 overlays" },
-    { value: "87", label: "production releases of the web app" },
+    { value: "85", label: "production releases of the web app" },
   ],
   video: {
     src: "/videos/rivals-pulse-voice-demo.mp4",
