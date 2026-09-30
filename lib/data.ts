@@ -154,6 +154,7 @@ export const projectsData = [
     github: "https://github.com/anthonyturner/rivals-pulse-web",
     website: "https://www.rivalspulse.com/",
     repo: "anthonyturner/rivals-pulse-web",
+    caseStudyUrl: "/case-studies/rivals-pulse",
   },
   {
     title: "Rivals Pulse - Marvel Rivals Overwolf App (available soon on appstore)",
@@ -168,6 +169,7 @@ export const projectsData = [
       "Unedited match capture of the voice assistant in use. Turn sound on - the assistant is heard rather than shown, so the spoken questions and its replies are the demo.",
     website: "https://www.overwolf.com/appstore",
     repo: "anthonyturner/rivals_pulse",
+    caseStudyUrl: "/case-studies/rivals-pulse",
   },
   {
     title: "Agent Speak - Voice Plugin for AI Coding Agents",
@@ -301,12 +303,23 @@ export const certificationsData:JobCertification[] = [
 
 // Figures come from the Observatory and pr-starmap repos (gh and git); keep them as written.
 // pr-starmap is private and archived, so it is named but never linked.
-export const observatoryCaseStudy: CaseStudy = {
+const observatoryCaseStudy: CaseStudy = {
+  slug: "observatory",
   title: "Migrating an AI-built prototype into a production Angular app, with AI",
   byline: "Anthony Turner · September 2026",
   projectName: "Observatory",
-  repoUrl: "https://github.com/anthonyturner/observatory",
-  liveUrl: "https://observatory-nu-ten.vercel.app",
+  metaDescription:
+    "How Anthony Turner directed AI agents to migrate a prototype of 16,288 lines of single-file HTML into a tested, production Angular app in five days: 105 merged pull requests and about 1,500 automated tests.",
+  links: [
+    { label: "Source on GitHub", href: "https://github.com/anthonyturner/observatory", kind: "github" },
+    { label: "Live preview", href: "https://observatory-nu-ten.vercel.app", kind: "website" },
+  ],
+  socialImage: {
+    url: "https://observatory-nu-ten.vercel.app/portfolio/observatory-poster.jpg",
+    width: 1280,
+    height: 720,
+    alt: "The Observatory home screen",
+  },
   summary:
     "I built a developer dashboard, pr-starmap, fast with AI coding agents. In three days it worked, but it had become three single-file HTML pages of 2,300 to 7,100 lines each: hard to test, hard to change, and impossible to hand to anyone. Rather than keep patching it, I planned a rebuild in Angular and directed AI agents (Claude Code) through it under an engineering process I set up: every change started as a GitHub issue, went through a pull request with tests and a written review, and was merged only once verified. In five days the new app, Observatory, replaced every feature of the old one. It ended with 105 merged pull requests, about 1,500 automated tests, and a clean shutdown of the original.",
   builtWith: [
@@ -553,3 +566,256 @@ export const observatoryCaseStudy: CaseStudy = {
   timeline:
     "pr-starmap started 22 Sep 2026. Observatory's first PR merged 25 Sep, feature parity arrived 29 Sep, and pr-starmap was archived 29 Sep.",
 };
+
+// Figures come from git and gh for anthonyturner/rivals_pulse (desktop app) and
+// anthonyturner/rivals-pulse-web (web app), as of 30 Sep 2026. The desktop repo is
+// private: cite counts, dates and features only, never its code, and never link it.
+const rivalsPulseCaseStudy: CaseStudy = {
+  slug: "rivals-pulse",
+  title: "A real-time game overlay with a voice assistant, and the web app that feeds it",
+  byline: "Anthony Turner · September 2026",
+  projectName: "Rivals Pulse",
+  metaDescription:
+    "How Anthony Turner built Rivals Pulse: an Overwolf overlay for Marvel Rivals with a voice assistant grounded in live match data, and the Angular web app that serves its data. 261 merged pull requests and about 1,910 automated tests on the desktop app.",
+  links: [
+    { label: "Web app: rivalspulse.com", href: "https://rivalspulse.com", kind: "website" },
+    { label: "Web app source on GitHub", href: "https://github.com/anthonyturner/rivals-pulse-web", kind: "github" },
+  ],
+  socialImage: {
+    url: "/images/rivals-pulse-voice-demo-poster.jpg",
+    width: 1280,
+    height: 720,
+    alt: "Marvel Rivals hero select, where the recorded voice-assistant session begins",
+  },
+  summary:
+    "Rivals Pulse is a companion for the game Marvel Rivals, in two parts. The desktop app runs inside the game through Overwolf: it reads live match events and draws a heads-up display of rosters, stats and match state, and a voice assistant answers questions out loud mid-match without the player leaving the game. The web app at rivalspulse.com is a coaching site with hero guides, counters, a team builder and meta reports, and it doubles as the data service the desktop app reads from. I built both on my own, directing AI coding agents through tracked issues, pull requests and reviews: 261 merged pull requests and about 1,910 automated tests on the desktop app, and 85 production releases of the web app.",
+  builtWith: [
+    "Angular 21 / 20",
+    "TypeScript",
+    "Signals + RxJS",
+    "Overwolf ODK",
+    "ElevenLabs Conversational AI",
+    "Supabase",
+    "IndexedDB",
+    "Turso (libSQL)",
+    "Vercel",
+    "Jasmine + Karma",
+  ],
+  stats: [
+    { value: "261", label: "merged pull requests on the desktop app" },
+    { value: "~1,910", label: "automated tests on the desktop app" },
+    { value: "16", label: "Overwolf windows: a dashboard and 15 overlays" },
+    { value: "85", label: "production releases of the web app" },
+  ],
+  video: {
+    src: "/videos/rivals-pulse-voice-demo.mp4",
+    poster: "/images/rivals-pulse-voice-demo-poster.jpg",
+    caption:
+      "Unedited match capture of the voice assistant in use. Turn sound on: the assistant is heard rather than shown, so the spoken questions and its replies are the demo.",
+  },
+  sections: [
+    {
+      heading: "The product",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Players of a fast team shooter have seconds to make decisions and no time to alt-tab to a wiki. Rivals Pulse puts the information where the player already is:",
+        },
+        {
+          kind: "list",
+          items: [
+            {
+              lead: "In the game:",
+              text: "a match bar, a live stats bar, ally and enemy rosters with a top-performer badge, last-match rosters carried into hero select, a session win/loss record and an end-of-match summary.",
+            },
+            {
+              lead: "Out loud:",
+              text: "a hotkey-activated voice assistant with on-screen subtitles and a spoken end-of-match wrap-up.",
+            },
+            {
+              lead: "On the desktop:",
+              text: "match history, hero stats and insight charts, hero lookup, counter search, a ban list, a glossary of game slang, and per-widget settings.",
+            },
+            {
+              lead: "On the web:",
+              text: "about 24 pages of coaching: a hero encyclopedia, hero and strategist guides, positioning guides, counters with a planner for dive compositions, a team builder, a tier list, season win-rate reports and live player-count stats.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      heading: "Architecture: two apps, one data flow",
+      blocks: [
+        {
+          kind: "table",
+          columns: ["Part", "How it works"],
+          rows: [
+            [
+              "Desktop app",
+              "Angular 21 on Overwolf, with standalone components, signals and OnPush change detection. 96 components and 76 services across 16 windows and 19 hotkeys, fed by Overwolf's game events for live match, roster and scene data.",
+            ],
+            [
+              "Local-first data",
+              "An IndexedDB cache is reconciled with Supabase Postgres (row-level security), so match history stays visible when a stats provider is down.",
+            ],
+            [
+              "Backend functions",
+              "Supabase Edge Functions sync match and hero history from third-party stats providers and issue short-lived voice sessions.",
+            ],
+            [
+              "Web app",
+              "Angular 20 (zoneless) on Vercel with 13 serverless functions over a Turso database. It also serves heroes, the glossary and the tier list to the desktop app.",
+            ],
+            [
+              "Fresh data without redeploys",
+              "Scheduled jobs refresh game stats hourly, the tier list every six hours and the news daily. A nightly workflow adds new heroes to the database and opens a pull request for their portraits.",
+            ],
+          ],
+        },
+      ],
+    },
+    {
+      heading: "A voice assistant grounded in live match data",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "The assistant runs on ElevenLabs Conversational AI over WebRTC. The design choices are what make it useful in a match rather than a demo:",
+        },
+        {
+          kind: "list",
+          items: [
+            {
+              lead: "Answers come from the app, not the model's memory.",
+              text: "The agent calls eight tools that wrap the app's own services (counters, glossary, team composition, player stats, player comparison, hero guides, session record and match info), so it answers from the live match.",
+            },
+            {
+              lead: "Latency against cost.",
+              text: "A toggle hotkey opens the session, and it closes after 15 seconds of silence, with a hard cap on session length, balancing connection time against per-minute billing. It is off by default.",
+            },
+            {
+              lead: "Secured sessions.",
+              text: "Short-lived session tokens are minted by a backend function and rate-limited, so no API key ships in the app.",
+            },
+            {
+              lead: "Platform rules first.",
+              text: "The overlay treats other players' data conservatively, following the publisher's rules for overlays as the project understands them. That approach is written down once as a decision record and enforced in what the assistant will answer.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      heading: "Hard problems in a real-time overlay",
+      blocks: [
+        {
+          kind: "list",
+          items: [
+            {
+              lead: "Out-of-memory crashes mid-match.",
+              text: "Every game-event update started a new timer, and full event dumps were logged in every window. One timer per player and debug-only logging fixed it.",
+            },
+            {
+              lead: "Wasted re-renders in teamfights.",
+              text: "The stats bar rebuilt its DOM on every event tick. Signal equality checks, stable tracking keys and OnPush change detection stopped it.",
+            },
+            {
+              lead: "Noisy game state.",
+              text: "The game's scene flag flips between match and lobby for minutes after a match, which made the display flicker. It is now debounced once, at the source, instead of in every consumer.",
+            },
+            {
+              lead: "Events that arrive in either order.",
+              text: "Match start and a new match ID race each other, and carrying the last match's roster into hero select failed about three times in four. It now opens on whichever signal arrives first.",
+            },
+            {
+              lead: "A silently stale season on the web app.",
+              text: "A news parser matched the wrong headline and fell back to a hard-coded season for about a month. The fix scans every headline for the highest season and adds a regression test.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      heading: "How I directed the AI",
+      blocks: [
+        {
+          kind: "list",
+          items: [
+            {
+              lead: "Issue-first, from July 2026.",
+              text: "Since July, changes on the desktop app go from issue to branch, pull request, review and merge: 335 issues and 261 merged pull requests.",
+            },
+            {
+              lead: "Written rules for the agents.",
+              text: "A written agent guide, role definitions for product, refinement, UX, engineering and QA agents, and nine Architecture Decision Records.",
+            },
+            {
+              lead: "Visible AI authorship.",
+              text: "192 of the desktop app's 386 commits on main (about half) carry an AI co-author trailer, so the history shows which work was agent-written.",
+            },
+            {
+              lead: "Guard rails in the tooling.",
+              text: "Strict TypeScript with strict template checks, ESLint, conventional commits enforced by a commit hook, and lint on every commit.",
+            },
+            {
+              lead: "Tests that match the code.",
+              text: "The desktop app has about 33,000 lines of tests alongside about 35,400 lines of app code.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      heading: "Mistakes along the way",
+      blocks: [
+        {
+          kind: "list",
+          items: [
+            {
+              lead: "A bad merge broke the build.",
+              text: "A bad merge once left a stray brace and dropped a fix on main, breaking the build. A follow-up restored both.",
+            },
+            {
+              lead: "Widgets built, then cut.",
+              text: "Four HUD widgets and their services were built, then removed to reduce clutter.",
+            },
+            {
+              lead: "Uneven test coverage.",
+              text: "The web app has 30 tests against the desktop app's 1,910. Its stale-season bug lasted about a month before it was caught, and the fix added a regression test.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      heading: "What this shows",
+      blocks: [
+        {
+          kind: "list",
+          items: [
+            {
+              lead: "Real-time front-end engineering:",
+              text: "performance and correctness under a constant stream of game events, across 16 windows.",
+            },
+            {
+              lead: "Practical AI integration:",
+              text: "a voice agent that uses the app's own data through tools, with cost, security and platform rules designed in.",
+            },
+            {
+              lead: "Full-stack delivery:",
+              text: "Angular on the desktop and the web, Supabase and Turso data, serverless functions and scheduled data pipelines.",
+            },
+            {
+              lead: "Directing AI with discipline:",
+              text: "hundreds of tracked changes through pull requests, with decisions written down.",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  timeline:
+    "The desktop app's first commit was 25 Nov 2025. The web app started 4 Jun 2026 and first reached production on 15 Jun. The issue-first workflow began 16 Jul, the web app took the Rivals Pulse name on 30 Jul, and the voice assistant merged 22 Sep. The desktop app is at version 1.0 and not yet released on the Overwolf store.",
+};
+
+export const caseStudies: readonly CaseStudy[] = [observatoryCaseStudy, rivalsPulseCaseStudy];

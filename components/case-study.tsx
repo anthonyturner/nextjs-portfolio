@@ -62,8 +62,7 @@ function Block({ block }: { block: CaseStudyBlock }) {
 }
 
 export default function CaseStudyArticle({ caseStudy }: { caseStudy: CaseStudy }) {
-  const { title, byline, summary, projectName, repoUrl, liveUrl, builtWith, stats, video, sections, timeline } =
-    caseStudy
+  const { title, byline, summary, projectName, links, builtWith, stats, video, sections, timeline } = caseStudy
 
   return (
     <article className="mb-20 w-full max-w-[45rem] leading-relaxed text-gray-700">
@@ -74,24 +73,24 @@ export default function CaseStudyArticle({ caseStudy }: { caseStudy: CaseStudy }
         <h1 className="mt-2 text-3xl font-semibold leading-tight text-gray-950 sm:text-4xl">{title}</h1>
         <p className="mt-3 text-sm text-gray-600">{byline}</p>
         <div className="mt-6 flex flex-wrap gap-4">
-          <a
-            href={repoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 transition ${focusRing}`}
-          >
-            <FaGithub size={16} aria-hidden="true" />
-            Source on GitHub
-          </a>
-          <a
-            href={liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`flex items-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 transition ${focusRing}`}
-          >
-            <FaExternalLinkAlt size={14} aria-hidden="true" />
-            Live preview
-          </a>
+          {links.map(({ label, href, kind }) => (
+            <a
+              key={href}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-white transition ${
+                kind === 'github' ? 'bg-gray-800 hover:bg-gray-700' : 'bg-blue-600 hover:bg-blue-700'
+              } ${focusRing}`}
+            >
+              {kind === 'github' ? (
+                <FaGithub size={16} aria-hidden="true" />
+              ) : (
+                <FaExternalLinkAlt size={14} aria-hidden="true" />
+              )}
+              {label}
+            </a>
+          ))}
         </div>
         <ul className="mt-6 flex flex-wrap gap-2" aria-label="Built with">
           {builtWith.map((item) => (
