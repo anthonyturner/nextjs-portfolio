@@ -18,6 +18,8 @@ export type LearningVideo = {
   readonly youtubeId: string;
   readonly startSeconds?: number;
   readonly description: string;
+  readonly keyIdeas: readonly string[];
+  readonly howToApply: readonly string[];
   readonly tags: readonly string[];
 };
 export type Project = {
