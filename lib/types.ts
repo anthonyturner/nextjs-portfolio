@@ -12,6 +12,14 @@ export type JobCertification = {
   readonly website: string;
   readonly pdfUrl?: string; // Optional with '?'
 };
+export type LearningVideo = {
+  readonly title: string;
+  readonly channel: string;
+  readonly youtubeId: string;
+  readonly startSeconds?: number;
+  readonly description: string;
+  readonly tags: readonly string[];
+};
 export type Project = {
   readonly title: string;
   readonly description: string;
