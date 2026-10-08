@@ -16,7 +16,7 @@ function watchUrl({ youtubeId, startSeconds }: LearningVideo): string {
 }
 
 export default function Learning() {
-  const { ref } = useSectionInView('Learning', 0.5)
+  const { ref } = useSectionInView('Learning', 0.25)
 
   return (
     <section ref={ref} id="learning" className="mb-20 w-full max-w-[53rem] scroll-mt-28 sm:mb-40">
