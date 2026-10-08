@@ -15,6 +15,19 @@ function watchUrl({ youtubeId, startSeconds }: LearningVideo): string {
   return `https://www.youtube.com/watch?v=${youtubeId}${start}`
 }
 
+function PointList({ heading, points }: { heading: string; points: readonly string[] }) {
+  return (
+    <div>
+      <h4 className="font-semibold text-gray-800">{heading}</h4>
+      <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-gray-600 marker:text-amber-600">
+        {points.map((point) => (
+          <li key={point}>{point}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 export default function Learning() {
   const { ref } = useSectionInView('Learning', 0.25)
 
@@ -52,6 +65,10 @@ export default function Learning() {
             </h3>
             <p className="text-sm text-gray-500">{video.channel}</p>
             <p className="text-gray-600 mt-2 leading-relaxed">{video.description}</p>
+            <div className="mt-6 grid gap-6 md:grid-cols-2">
+              <PointList heading="Key ideas" points={video.keyIdeas} />
+              <PointList heading="How to apply it" points={video.howToApply} />
+            </div>
             <ul className="flex flex-wrap gap-2 mt-4" aria-label="Topics">
               {video.tags.map((tag) => (
                 <li key={tag} className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm">

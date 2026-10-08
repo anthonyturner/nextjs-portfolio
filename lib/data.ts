@@ -305,6 +305,7 @@ export const certificationsData:JobCertification[] = [
   },
 ] as const;
 
+// Summaries are drawn from each video's YouTube transcript; keep them to what the speakers actually say.
 export const learningVideosData: readonly LearningVideo[] = [
   {
     title: "LIVE: Uncle Bob on Software Fundamentals in the Age of AI",
@@ -312,7 +313,24 @@ export const learningVideosData: readonly LearningVideo[] = [
     youtubeId: "zcLPGC-tvgk",
     startSeconds: 698,
     description:
-      "Robert C. Martin (Uncle Bob) joins Matt Pocock live to talk about why software fundamentals - clean code, design principles and professional discipline - still matter as AI writes more of our code.",
+      "Robert C. Martin (Uncle Bob), author of Clean Code, talks with Matt Pocock about building software with AI coding agents. His point: agents are fast, but messy code trips them up just like it trips up people, so clean code, well-shaped modules and strong tests matter more than ever. The video starts at 11:38, where he explains why.",
+    keyIdeas: [
+      "Agents thrash on messy code. Stack task on task without cleaning up and they start breaking one thing while fixing another, going in circles - the same wall humans hit.",
+      "Rules in a long prompt are \"more like guidelines\": instructions get lost in the middle of a growing context window. Keep the prompt short and enforce quality with deterministic tools instead.",
+      "Put agents in a loop with automated checks they must pass: CRAP scores (complexity weighed against test coverage), mutation testing, and rules for which modules may depend on which.",
+      "Chain focused agents: a specifier writes acceptance tests and a QA script, then a coder, a cleaner, a hardener running mutation tests, and a QA agent. It takes about an hour instead of five minutes, but it is still several times faster than a person, at higher quality.",
+      "Give agents human values, not human disciplines: keep the quality bar, adjust thresholds to what agents handle well, but don't force strict test-driven development on them.",
+      "Skip the big up-front spec. Change is now cheap, so build a story or two, review the architecture, and iterate.",
+      "Fundamentals still matter because software is enormously complex, and they are how we organize that complexity so both people and models can understand it.",
+    ],
+    howToApply: [
+      "Keep CLAUDE.md or AGENTS.md short, and turn every rule you can into a linter, type check, test or CI gate the agent has to pass.",
+      "Add a complexity and coverage check, and try a mutation-testing tool (such as Stryker for JavaScript and TypeScript) to find logic no test really covers.",
+      "Write down which modules may import which, and check it automatically so the architecture can't drift.",
+      "Split agent work into stages - implement, then clean up and review, then harden - each starting from a fresh context.",
+      "Work in small increments and review the structure between them instead of handing an agent a long plan.",
+      "Keep writing some code by hand and read the classics, such as The Pragmatic Programmer, so you can recognize when an agent is struggling.",
+    ],
     tags: ["Clean Code", "Software Craftsmanship", "AI-Assisted Development"],
   },
   {
@@ -320,7 +338,22 @@ export const learningVideosData: readonly LearningVideo[] = [
     channel: "Talks at Google",
     youtubeId: "bmSAYlu0NcY",
     description:
-      "Stanford professor John Ousterhout presents the ideas behind his book A Philosophy of Software Design: complexity is the core problem in software, and deep modules with simple interfaces and good information hiding are the way to keep it under control.",
+      "Stanford professor John Ousterhout, whose systems include Tcl and Raft, argues that the most important idea in computer science is problem decomposition - splitting a complicated system into pieces you can build independently - and that it can be taught. He walks through the core ideas of his book and his Stanford design course.",
+    keyIdeas: [
+      "Classes should be deep: a small, simple interface hiding a lot of functionality. The interface is everything a caller has to know, side effects included, so shallow classes add cost without hiding much. The five-call Unix file API is his favorite example.",
+      "Beware \"classitis\": lots of tiny classes because methods \"should be short.\" Length isn't the real problem; abstraction is. Make the common case simple.",
+      "Define errors out of existence: change what an operation means so the error can't happen. Deleting a variable that doesn't exist just succeeds; Unix lets you delete a file that is still open; a substring call could return the overlap instead of throwing.",
+      "Still throw an exception when you truly can't do what the caller asked, such as a failed disk read. Part of design is deciding what matters.",
+      "Working code isn't enough. Tactical programming - get it working, allow a few shortcuts - piles up into spaghetti through hundreds of small mistakes, and the \"tactical tornado\" who ships fast leaves a mess behind.",
+      "Program strategically: aim for a great design, because most of the code you will write is in the future. Investing roughly 10-20% more time pays back, in his estimate, within about 6 to 12 months.",
+    ],
+    howToApply: [
+      "Before adding a class or function, weigh its interface against what it hides; fold wrappers that only forward a call back into their caller.",
+      "Design the interface first, and make the most common use the simplest one.",
+      "Each time you reach for a throw, ask whether the operation could be redefined so the case is normal: idempotent deletes, clamped ranges, empty results.",
+      "Spend about 10-20% of your time on design, and leave code a little better every time you touch it rather than making the smallest possible change.",
+      "In code reviews, talk about design - shallow modules, complicated interfaces, too many exception handlers - not just style and bugs.",
+    ],
     tags: ["Software Design", "Complexity", "Modular Design"],
   },
 ];
