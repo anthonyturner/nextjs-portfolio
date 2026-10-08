@@ -315,6 +315,14 @@ export const learningVideosData: readonly LearningVideo[] = [
       "Robert C. Martin (Uncle Bob) joins Matt Pocock live to talk about why software fundamentals - clean code, design principles and professional discipline - still matter as AI writes more of our code.",
     tags: ["Clean Code", "Software Craftsmanship", "AI-Assisted Development"],
   },
+  {
+    title: "A Philosophy of Software Design | John Ousterhout | Talks at Google",
+    channel: "Talks at Google",
+    youtubeId: "bmSAYlu0NcY",
+    description:
+      "Stanford professor John Ousterhout presents the ideas behind his book A Philosophy of Software Design: complexity is the core problem in software, and deep modules with simple interfaces and good information hiding are the way to keep it under control.",
+    tags: ["Software Design", "Complexity", "Modular Design"],
+  },
 ];
 
 // Figures come from the Observatory and pr-starmap repos (gh and git); keep them as written.
