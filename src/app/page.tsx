@@ -3,6 +3,7 @@ import Certifications from '@/components/certifications'
 import Contact from '@/components/contact'
 import Experience from '@/components/experience'
 import Home from '@/components/home'
+import Learning from '@/components/learning'
 import Projects from '@/components/projects'
 import SectionDivider from '@/components/section-divider'
 import Skills from '@/components/skills'
@@ -25,6 +26,8 @@ export default async function Page() {
       <Skills />
       <SectionDivider /> 
       <Certifications />
+      <SectionDivider />
+      <Learning />
       <SectionDivider />
       <Experience />
       <SectionDivider />

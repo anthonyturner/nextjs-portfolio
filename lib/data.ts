@@ -2,7 +2,7 @@ import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
-import type { CaseStudy, JobCertification } from "./types";
+import type { CaseStudy, JobCertification, LearningVideo } from "./types";
  
 // Project images - using Next.js public folder pattern
 import agentSpeakImg from "@/public/images/agent-speak.svg";
@@ -42,6 +42,10 @@ export const links = [
   {
     name: "Certifications",
     hash: "#certifications",
+  },
+  {
+    name: "Learning",
+    hash: "#learning",
   },
   {
     name: "Experience",
@@ -300,6 +304,18 @@ export const certificationsData:JobCertification[] = [
     website: "https://learn.microsoft.com/en-us/certifications/microsoft-office-specialist-master-certification/",
   },
 ] as const;
+
+export const learningVideosData: readonly LearningVideo[] = [
+  {
+    title: "LIVE: Uncle Bob on Software Fundamentals in the Age of AI",
+    channel: "Matt Pocock",
+    youtubeId: "zcLPGC-tvgk",
+    startSeconds: 698,
+    description:
+      "Robert C. Martin (Uncle Bob) joins Matt Pocock live to talk about why software fundamentals - clean code, design principles and professional discipline - still matter as AI writes more of our code.",
+    tags: ["Clean Code", "Software Craftsmanship", "AI-Assisted Development"],
+  },
+];
 
 // Figures come from the Observatory and pr-starmap repos (gh and git); keep them as written.
 // pr-starmap is private and archived, so it is named but never linked.
