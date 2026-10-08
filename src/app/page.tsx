@@ -27,9 +27,9 @@ export default async function Page() {
       <SectionDivider /> 
       <Certifications />
       <SectionDivider />
-      <Learning />
-      <SectionDivider />
       <Experience />
+      <SectionDivider />
+      <Learning />
       <SectionDivider />
       <Contact />
       <SectionDivider />
