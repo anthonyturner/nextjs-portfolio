@@ -361,16 +361,16 @@ export const learningVideosData: readonly LearningVideo[] = [
     youtubeId: "4DhcSPkEbwI",
     startSeconds: 150,
     description:
-      "Matt Pocock, creator of Total TypeScript and of the widely used \"grill me\" skill for AI coding agents, explains how he plans, delegates and course-corrects with agents. His view: AI has largely eaten tactical programming, leaving us the strategic work, and the best guide to that work turns out to be the classic software engineering books.",
+      "Matt Pocock, creator of Total TypeScript and of the widely used \"grill me\" skill for AI coding agents, explains how he plans, delegates and course-corrects with agents. His view: AI has largely eaten tactical programming, leaving us the strategic work, and the classic software engineering books turn out to hold the ideas that work best with agents.",
     keyIdeas: [
       "An agent can't read your mind. \"Grill me\" is a very small skill that tells the agent to interview you relentlessly, so it learns what you value and what is in and out of scope before it writes code.",
       "The more context an agent holds, the worse it performs (Dex Horthy's \"smart zone\" and \"dumb zone\"). So he turns a grilling session into a spec that says where the work ends, splits it into tickets of one session each, and runs an implementer loop over them while he is away from the keyboard.",
-      "Match planning to the work: a small change you can check afterward needs no grilling, work that fits one session gets \"grill me\", and work spanning many sessions gets his Wayfinder skill - a shared map of decisions with a fog of war that each grilling, prototype or research ticket clears.",
+      "Match planning to the work: a small change you can check afterward needs no grilling, work that fits one session gets \"grill me\", and work spanning many sessions gets his Wayfinder skill - a map of decisions with a fog of war that each grilling, prototype or research ticket clears.",
       "Cheap prototypes are what keep up-front planning from becoming waterfall: build three or four versions, pick a favorite and iterate before writing the spec.",
-      "\"Leading words\" steer agents. Terms from classic books - \"tracer bullets\" and \"vertical slices\" from The Pragmatic Programmer, \"deep modules\" from A Philosophy of Software Design - are in the model's priors; once he used them, the agent repeated them in its reasoning and stopped building the whole database layer before the app on top of it.",
+      "\"Leading words\" steer agents. Terms like \"tracer bullets\" from The Pragmatic Programmer, \"deep modules\" from A Philosophy of Software Design, and \"vertical slices\" are in the model's priors. He reached for them because agents kept building the whole database layer before the app on top of it, and once he used them, the agent repeated them in its own reasoning.",
       "Build a shared domain language with the agent, Eric Evans's ubiquitous language from Domain-Driven Design. Once you both say \"materialization cascade\", you can describe a change in far fewer words.",
       "Memento-driven development: an agent starts every session with no memory, so it can't learn to work around a bad codebase the way a person does. Optimize the code for a newcomer - which is what software fundamentals have always aimed at.",
-      "He has mixed feelings about test-driven development for agents. It suits small human working memory, which agents don't share, but agents do need feedback loops, so he asks for proof that a change works and watches for tautological tests that just restate the code.",
+      "He has mixed feelings about test-driven development for agents. It suits small human working memory, which agents don't share, but agents do need feedback loops, so he asks for proof that a change works and watches for tautological tests that just restate the code. He still recommends it for the confidence it gives people.",
     ],
     howToApply: [
       "Before a large or hard-to-reverse change, have the agent interview you until the scope and tricky decisions are settled; skip that for a quick fix you can review afterward.",
