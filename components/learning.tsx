@@ -29,6 +29,7 @@ function PointList({ heading, points }: { heading: string; points: readonly stri
 }
 
 const bookStatusLabel: Record<Book['status'], string> = { reading: 'Reading', read: 'Read' }
+const authorList = new Intl.ListFormat('en', { type: 'conjunction' })
 
 function BookList() {
   return (
@@ -36,7 +37,7 @@ function BookList() {
       <h3 className="mt-12 mb-4 text-xl font-semibold text-gray-800">Books</h3>
       <ul className="bg-white border border-black/[0.1] rounded-lg divide-y divide-black/[0.1]">
         {booksData.map((book) => (
-          <li key={book.title} className="flex flex-col gap-2 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <li key={book.url} className="flex flex-col gap-2 p-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <a
                 href={book.url}
@@ -48,9 +49,10 @@ function BookList() {
                 <FaExternalLinkAlt className="text-xs" aria-hidden="true" />
                 <span className="sr-only">(opens in a new tab)</span>
               </a>
-              <p className="text-sm text-gray-500">by {book.authors.join(' and ')}</p>
+              <p className="text-sm text-gray-500">by {authorList.format(book.authors)}</p>
             </div>
             <span className="self-start bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm sm:self-center">
+              <span className="sr-only">Status: </span>
               {bookStatusLabel[book.status]}
             </span>
           </li>
