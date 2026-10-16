@@ -22,6 +22,12 @@ export type LearningVideo = {
   readonly howToApply: readonly string[];
   readonly tags: readonly string[];
 };
+export type Book = {
+  readonly title: string;
+  readonly authors: readonly string[];
+  readonly status: "reading" | "read";
+  readonly url: string;
+};
 export type Project = {
   readonly title: string;
   readonly description: string;

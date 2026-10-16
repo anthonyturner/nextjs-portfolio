@@ -1,7 +1,7 @@
 'use client'
-import { learningVideosData } from '@/lib/data'
+import { booksData, learningVideosData } from '@/lib/data'
 import { useSectionInView } from '@/lib/hooks'
-import type { LearningVideo } from '@/lib/types'
+import type { Book, LearningVideo } from '@/lib/types'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import SectionHeading from './section-heading'
 
@@ -28,6 +28,40 @@ function PointList({ heading, points }: { heading: string; points: readonly stri
   )
 }
 
+const bookStatusLabel: Record<Book['status'], string> = { reading: 'Reading', read: 'Read' }
+const authorList = new Intl.ListFormat('en', { type: 'conjunction' })
+
+function BookList() {
+  return (
+    <>
+      <h3 className="mt-12 mb-4 text-xl font-semibold text-gray-800">Books</h3>
+      <ul className="bg-white border border-black/[0.1] rounded-lg divide-y divide-black/[0.1]">
+        {booksData.map((book) => (
+          <li key={book.url} className="flex flex-col gap-2 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <a
+                href={book.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-semibold text-gray-800 hover:text-amber-600 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
+              >
+                {book.title}
+                <FaExternalLinkAlt className="text-xs" aria-hidden="true" />
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+              <p className="text-sm text-gray-500">by {authorList.format(book.authors)}</p>
+            </div>
+            <span className="self-start bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm sm:self-center">
+              <span className="sr-only">Status: </span>
+              {bookStatusLabel[book.status]}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </>
+  )
+}
+
 export default function Learning() {
   const { ref } = useSectionInView('Learning', 0.25)
 
@@ -35,7 +69,7 @@ export default function Learning() {
     <section ref={ref} id="learning" className="mb-20 w-full max-w-[53rem] scroll-mt-28 sm:mb-40">
       <SectionHeading>What I&apos;m learning</SectionHeading>
       <p className="-mt-4 mb-8 text-gray-600 leading-relaxed">
-        Talks and videos on computer science and software craft that shape how I build and keep sharpening my skills.
+        Talks, videos and books on computer science and software craft that shape how I build and keep sharpening my skills.
       </p>
       <ul className="flex flex-col gap-8">
         {learningVideosData.map((video) => (
@@ -79,6 +113,7 @@ export default function Learning() {
           </li>
         ))}
       </ul>
+      <BookList />
     </section>
   )
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
-import type { CaseStudy, JobCertification, LearningVideo } from "./types";
+import type { Book, CaseStudy, JobCertification, LearningVideo } from "./types";
  
 // Project images - using Next.js public folder pattern
 import agentSpeakImg from "@/public/images/agent-speak.svg";
@@ -382,6 +382,15 @@ export const learningVideosData: readonly LearningVideo[] = [
       "Read his three picks: The Pragmatic Programmer, A Philosophy of Software Design, and the first few chapters of Domain-Driven Design.",
     ],
     tags: ["AI-Assisted Development", "Agent Workflows", "Software Fundamentals"],
+  },
+];
+
+export const booksData: readonly Book[] = [
+  {
+    title: "The Pragmatic Programmer, 20th Anniversary Edition",
+    authors: ["David Thomas", "Andrew Hunt"],
+    status: "reading",
+    url: "https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/",
   },
 ];
 
