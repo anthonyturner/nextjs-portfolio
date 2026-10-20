@@ -312,7 +312,7 @@ export const certificationsData:JobCertification[] = [
 export const designData: Design = {
   heading: "Design foundations",
   intro:
-    "As a WordPress developer at REV Design, I worked alongside a professional graphic designer who constantly critiqued my design and UI work, and with the company's CEO, who taught me Adobe Photoshop and discussed design and projects with me. That sustained critique trained my eye for UI/UX. These are the principles I bring to every interface I build.",
+    "As a WordPress developer at REV Design, I worked alongside a professional graphic designer who constantly critiqued my design and UI work. I also worked with the company's CEO, who taught me Adobe Photoshop and discussed design and projects with me. I have a keen eye for UI/UX, and these are the principles I bring to the interfaces I build.",
   practices: [
     {
       title: "Layout and visual hierarchy",
