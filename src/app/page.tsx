@@ -8,6 +8,7 @@ import Learning from '@/components/learning'
 import Projects from '@/components/projects'
 import SectionDivider from '@/components/section-divider'
 import Skills from '@/components/skills'
+import { VoiceAssistantLauncher } from '@/components/voice-assistant'
 import { getProjects } from '@/lib/github-projects'
 
 // Refresh GitHub-sourced project data at most every 10 minutes.
@@ -36,6 +37,7 @@ export default async function Page() {
       <SectionDivider />
       <Contact />
       <SectionDivider />
+      <VoiceAssistantLauncher />
     </main>
   )
 }
