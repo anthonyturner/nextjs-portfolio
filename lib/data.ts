@@ -310,31 +310,39 @@ export const certificationsData:JobCertification[] = [
 ] as const;
 
 export const designData: Design = {
-  heading: "My design background",
+  heading: "Design foundations",
   intro:
-    "At REV Design I worked as a WordPress developer, and I worked closely with a professional graphic designer. He constantly critiqued my design work and my UI work, and I learned quite a bit about graphic design.",
+    "As a WordPress developer at REV Design, I worked alongside a professional graphic designer who constantly critiqued my design and UI work. I also worked with the company's CEO, who taught me Adobe Photoshop and discussed design and projects with me. I have a keen eye for UI/UX, and these are the principles I bring to the interfaces I build.",
   practices: [
     {
-      title: "Page layout and structure",
-      description: "I learned how to lay things out on a page and how to structure elements.",
-    },
-    {
-      title: "CSS styling",
-      description: "I learned how to apply proper styling with CSS.",
-    },
-    {
-      title: "Use of color",
-      description: "I learned the proper use of colors.",
-    },
-    {
-      title: "Photoshop and talking design",
+      title: "Layout and visual hierarchy",
       description:
-        "I worked closely with the CEO on how to use Adobe Photoshop, and I talked with him about design and projects.",
+        "Composing pages with deliberate alignment, spacing and grouping, so related elements read together and the most important content draws the eye first.",
     },
     {
-      title: "UI/UX, fonts and typography",
+      title: "Semantic HTML",
       description:
-        "I have a pretty decent eye for what needs to be done correctly in UI/UX, fonts and typography.",
+        "Structuring markup with meaningful elements, landmarks and a logical heading outline, so the document makes sense to browsers, search engines and assistive technology before any styling is applied.",
+    },
+    {
+      title: "Maintainable CSS",
+      description:
+        "Translating designs into precise, consistent CSS: a shared spacing and type scale, reusable styles and responsive layouts that hold up from phone to desktop.",
+    },
+    {
+      title: "Color theory and contrast",
+      description:
+        "Applying color with intent: a restrained palette, accent colors that guide attention to key actions, and foreground and background pairings with enough contrast to stay legible.",
+    },
+    {
+      title: "Typography",
+      description:
+        "Selecting and pairing typefaces, and tuning size, weight, line height and line length, to build a clear typographic hierarchy that is comfortable to read.",
+    },
+    {
+      title: "Accessibility",
+      description:
+        "Designing for everyone from the start: sufficient color contrast, readable type, visible focus states and keyboard-friendly interactions, guided by WCAG.",
     },
   ],
 };
