@@ -2,7 +2,7 @@ import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
-import type { Book, CaseStudy, JobCertification, LearningVideo } from "./types";
+import type { Book, CaseStudy, Design, JobCertification, LearningVideo } from "./types";
  
 // Project images - using Next.js public folder pattern
 import agentSpeakImg from "@/public/images/agent-speak.svg";
@@ -46,6 +46,10 @@ export const links = [
   {
     name: "Experience",
     hash: "#experience",
+  },
+  {
+    name: "Design",
+    hash: "#design",
   },
   {
     name: "Learning",
@@ -304,6 +308,36 @@ export const certificationsData:JobCertification[] = [
     website: "https://learn.microsoft.com/en-us/certifications/microsoft-office-specialist-master-certification/",
   },
 ] as const;
+
+export const designData: Design = {
+  heading: "My design background",
+  intro:
+    "At REV Design I worked as a WordPress developer, and I worked closely with a professional graphic designer. He constantly critiqued my design work and my UI work, and I learned quite a bit about graphic design.",
+  practices: [
+    {
+      title: "Page layout and structure",
+      description: "I learned how to lay things out on a page and how to structure elements.",
+    },
+    {
+      title: "CSS styling",
+      description: "I learned how to apply proper styling with CSS.",
+    },
+    {
+      title: "Use of color",
+      description: "I learned the proper use of colors.",
+    },
+    {
+      title: "Photoshop and talking design",
+      description:
+        "I worked closely with the CEO on how to use Adobe Photoshop, and I talked with him about design and projects.",
+    },
+    {
+      title: "UI/UX, fonts and typography",
+      description:
+        "I have a pretty decent eye for what needs to be done correctly in UI/UX, fonts and typography.",
+    },
+  ],
+};
 
 export const learningVideosData: readonly LearningVideo[] = [
   {
