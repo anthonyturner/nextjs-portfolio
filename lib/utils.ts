@@ -1,4 +1,4 @@
-export const isValidString = (value: unknown, maxLength: number) =>{
+export const isValidString = (value: unknown, maxLength: number): value is string =>{
   if(!value || typeof(value) !== "string" || value.length > maxLength){
     return false;
   }
