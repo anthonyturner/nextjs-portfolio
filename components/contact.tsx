@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import SectionHeading from './section-heading'
 import SubmitBtn from './submit-btn'
+import VoiceAssistant from './voice-assistant'
 
 export default function Contact() {
   const { ref } = useSectionInView('Contact', 1)
@@ -36,6 +37,7 @@ export default function Contact() {
         </a>{' '}
         or through this form.
       </p>
+      <VoiceAssistant />
       <form
         className="mt-10 flex flex-col p-1"
         action={async (formData) => {

@@ -953,4 +953,9 @@ const rivalsPulseCaseStudy: CaseStudy = {
     "The desktop app's first commit was 25 Nov 2025. The web app started 4 Jun 2026 and first reached production on 15 Jun. The issue-first workflow began 16 Jul, the web app took the Rivals Pulse name on 30 Jul, and the voice assistant merged 22 Sep. The desktop app is at version 1.0 and not yet released on the Overwolf store.",
 };
 
+export const voiceAssistantData = {
+  privacyNotice:
+    "The voice assistant uses your microphone, and ElevenLabs processes the audio of the conversation.",
+} as const;
+
 export const caseStudies: readonly CaseStudy[] = [observatoryCaseStudy, rivalsPulseCaseStudy];
