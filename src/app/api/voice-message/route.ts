@@ -13,6 +13,8 @@ const GLOBAL_LIMIT = 20
 const MAX_CONVERSATION_ID_LENGTH = 200
 const UNKNOWN_CONVERSATION = 'unknown-conversation'
 const GLOBAL_KEY = 'all'
+const NOT_CONFIGURED_MESSAGE =
+  'Message taking is not set up yet. Ask the caller to use the contact form on the website instead.'
 
 const conversationLimiter = createRateLimiter({ limit: CONVERSATION_LIMIT, windowMs: WINDOW_MS })
 const globalLimiter = createRateLimiter({ limit: GLOBAL_LIMIT, windowMs: WINDOW_MS })
@@ -37,7 +39,7 @@ const secretMatches = (provided: string | null, expected: string): boolean =>
 export async function POST(request: Request): Promise<NextResponse> {
   const expectedSecret = process.env.VOICE_TOOL_SECRET?.trim()
   if (!expectedSecret) {
-    return respond(503, 'not-configured', 'Message taking is not set up yet. Ask the caller to use the contact form on the website instead.')
+    return respond(503, 'not-configured', NOT_CONFIGURED_MESSAGE)
   }
   if (!secretMatches(request.headers.get(SECRET_HEADER), expectedSecret)) {
     return respond(401, 'unauthorized', 'This request was not authorised, so the message was not sent. Ask the caller to use the contact form on the website instead.')
@@ -83,7 +85,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         { field: result.field }
       )
     case 'not-configured':
-      return respond(503, 'not-configured', 'Message taking is not set up yet. Ask the caller to use the contact form on the website instead.')
+      return respond(503, 'not-configured', NOT_CONFIGURED_MESSAGE)
     case 'send-failed':
       return respond(502, 'send-failed', 'The message could not be sent just now. Ask the caller to use the contact form on the website or to try again later.', { detail: result.error })
   }
