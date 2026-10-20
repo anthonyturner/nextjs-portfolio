@@ -436,6 +436,11 @@ export const booksData: readonly Book[] = [
   },
 ];
 
+export const voiceAssistantData = {
+  privacyNotice:
+    "The voice assistant uses your microphone, and ElevenLabs processes the audio of the conversation.",
+} as const;
+
 // Figures come from the Observatory and pr-starmap repos (gh and git); keep them as written.
 // pr-starmap is private and archived, so it is named but never linked.
 const observatoryCaseStudy: CaseStudy = {
