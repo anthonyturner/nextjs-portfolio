@@ -12,6 +12,15 @@ export type JobCertification = {
   readonly website: string;
   readonly pdfUrl?: string; // Optional with '?'
 };
+export type DesignPractice = {
+  readonly title: string;
+  readonly description: string;
+};
+export type Design = {
+  readonly heading: string;
+  readonly intro: string;
+  readonly practices: readonly DesignPractice[];
+};
 export type LearningVideo = {
   readonly title: string;
   readonly channel: string;
