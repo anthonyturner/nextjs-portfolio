@@ -1,51 +1,17 @@
 'use server'
-import ContactFormEmail from '@/email/contact-form-email'
-import { getErrorMessage, isValidString } from '@/lib/utils'
-import React from "react"
-import { Resend } from 'resend'
+import { sendContactEmail } from '@/lib/contact-email'
 
-export const sendEmail = async (formData: FormData) => {
-  const email = formData.get('email') as string
-  const message = formData.get('message') as string
+export const sendEmail = async (
+  formData: FormData
+): Promise<{ error: string; data?: undefined } | { data: { id: string }; error?: undefined }> => {
+  const result = await sendContactEmail({
+    source: 'contact-form',
+    email: formData.get('email'),
+    message: formData.get('message'),
+  })
 
-  if (!isValidString(email, 500)) {
-    return {
-      error: 'Invalid sender email',
-    }
+  if (!result.ok) {
+    return { error: result.error }
   }
-  if (!isValidString(message, 5000)) {
-    return {
-      error: 'Invalid sender message',
-    }
-  }
-  
-  if (!process.env.RESEND_API_KEY) {
-    return {
-      error: 'Email service is not configured. Please contact the administrator.',
-    }
-  }
-
-  // Initialize Resend inside the function to avoid build-time errors
-  const resend = new Resend(process.env.RESEND_API_KEY)
-
-  let data;
-  try {
-      data = await resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: 'anthonybturner@icloud.com',
-      subject: 'Message from contact form',
-      replyTo: email,
-      react: React.createElement(ContactFormEmail, {
-        message: message, 
-        email: email}),
-    })
-  } catch (error: unknown) {
-    return {
-      error: getErrorMessage(error),
-    }
-  }
-
-  return {
-    data,
-  }
+  return { data: { id: result.id } }
 }

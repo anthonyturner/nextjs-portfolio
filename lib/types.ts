@@ -94,3 +94,5 @@ export type ActiveSectionContextType = {
   timeOfLastClick: number
   setTimeOfLastClick: (time: number) => void;
 }
+
+export type ContactEmailSource = "contact-form" | "voice-assistant"
