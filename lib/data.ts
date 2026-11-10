@@ -12,6 +12,7 @@ import mosThumb from "@/public/images/certifications/mos-thumb.svg";
 import mosImg from "@/public/images/certifications/mos.svg";
 import solidThumb from "@/public/images/certifications/solid-thumb.png";
 import solidImg from "@/public/images/certifications/solid.png";
+import crewBridgeImg from "@/public/images/crew-bridge.png";
 import marvelRivalsAppThumb from "@/public/images/marvel-rivals-site-thumb.png";
 import marvelRivalsAppImg from "@/public/images/marvel-rivals-site.png";
 import modernStackImg from "@/public/images/modern-stack-solutions.png";
@@ -188,7 +189,15 @@ export const projectsData = [
     thumbnailUrl: agentSpeakImg,
     github: "https://github.com/anthonyturner/agent-speak",
     repo: "anthonyturner/agent-speak",
-  }, 
+  },
+  {
+    title: "Crew Bridge - Observability for a Multi-Agent AI Dev Team",
+    description:
+      "I designed and run an AI agent team, and built tooling to supervise it. Crew Bridge is a Claude Code plugin that opens a panel beside the chat in VS Code and shows, in real time, which agent is building, reviewing or waiting on me. Each agent has an animated SVG portrait that doubles as its status light - Working, Idle, Needs you, Done - with a role badge, time on task, a ×2 badge when one agent runs twice in parallel, and a toast when it finishes. It listens to the assistant's agent-spawn, subagent-stop, prompt, end-of-turn and ask-the-user events, keeps crew state in a reactive store, and adds no AI tokens to a turn. The team it supervises builds my Rivals Pulse overlay and website: named team leads, developers, QA, a product manager, engineering refinement and UX design, working a pipeline from scoped issue to feasibility check, design, a build in an isolated git worktree, QA review against the acceptance criteria, and a merge only on a posted approval with passing checks. I designed the workflow, the crew, the requirements and the designs, and directed the build; the agents wrote the code.",
+    tags: ["Agentic Workflows", "Multi-Agent Orchestration", "AI Developer Tooling", "Agent Observability", "Human-in-the-Loop", "IDE Extension", "Event-Driven UI", "Claude Code", "TypeScript", "SVG Animation"],
+    imageUrl: crewBridgeImg,
+    thumbnailUrl: crewBridgeImg,
+  },
   {
     title: "U.S. Navy Application Modernization",
     description:
