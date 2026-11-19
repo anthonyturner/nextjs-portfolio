@@ -877,8 +877,8 @@ const rivalsPulseCaseStudy: CaseStudy = {
               text: "Match start and a new match ID race each other, and carrying the last match's roster into hero select failed about three times in four. It now opens on whichever signal arrives first.",
             },
             {
-              lead: "A silently stale season on the web app.",
-              text: "A news parser matched the wrong headline and fell back to a hard-coded season for about a month. The fix scans every headline for the highest season and adds a regression test.",
+              lead: "A stale season on the web app.",
+              text: "A news parser matched the wrong headline and fell back to a hard-coded season. The fix scans every headline for the highest season and adds a regression test.",
             },
           ],
         },
@@ -930,7 +930,7 @@ const rivalsPulseCaseStudy: CaseStudy = {
             },
             {
               lead: "Uneven test coverage.",
-              text: "The web app has 30 tests against the desktop app's 1,910. Its stale-season bug lasted about a month before it was caught, and the fix added a regression test.",
+              text: "The web app has 30 tests against the desktop app's 1,910. Its stale-season fix added a regression test.",
             },
           ],
         },
